@@ -17,6 +17,7 @@
 		00AFADA624D172C500006DDD /* GamesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADA524D172C500006DDD /* GamesData.swift */; };
 		00AFADA924D177EA00006DDD /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADA824D177EA00006DDD /* WebService.swift */; };
 		00AFADAC24D17DC200006DDD /* GamesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADAB24D17DC200006DDD /* GamesViewModel.swift */; };
+		00AFADAF24D1890300006DDD /* GamesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADAE24D1890300006DDD /* GamesTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		00AFADA524D172C500006DDD /* GamesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesData.swift; sourceTree = "<group>"; };
 		00AFADA824D177EA00006DDD /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
 		00AFADAB24D17DC200006DDD /* GamesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewModel.swift; sourceTree = "<group>"; };
+		00AFADAE24D1890300006DDD /* GamesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 			children = (
 				00136F7D24D152EB0081F199 /* AppDelegate.swift */,
 				00136F7F24D152EB0081F199 /* SceneDelegate.swift */,
+				00AFADAD24D188E100006DDD /* CustomCells */,
 				00AFADA724D177CB00006DDD /* WebService */,
 				00AFADA424D1724F00006DDD /* Model */,
 				00AFADAA24D17D9200006DDD /* ViewModel */,
@@ -117,6 +120,14 @@
 				00AFADAB24D17DC200006DDD /* GamesViewModel.swift */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		00AFADAD24D188E100006DDD /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				00AFADAE24D1890300006DDD /* GamesTableViewCell.swift */,
+			);
+			path = CustomCells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +204,7 @@
 				00AFADA924D177EA00006DDD /* WebService.swift in Sources */,
 				00AFADA624D172C500006DDD /* GamesData.swift in Sources */,
 				00136F9624D15E3F0081F199 /* FavouritesViewController.swift in Sources */,
+				00AFADAF24D1890300006DDD /* GamesTableViewCell.swift in Sources */,
 				00AFADAC24D17DC200006DDD /* GamesViewModel.swift in Sources */,
 				00136F7E24D152EB0081F199 /* AppDelegate.swift in Sources */,
 				00136F9424D15E180081F199 /* GamesViewController.swift in Sources */,
