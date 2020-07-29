@@ -16,6 +16,7 @@
 		00136F9624D15E3F0081F199 /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00136F9524D15E3F0081F199 /* FavouritesViewController.swift */; };
 		00AFADA624D172C500006DDD /* GamesData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADA524D172C500006DDD /* GamesData.swift */; };
 		00AFADA924D177EA00006DDD /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADA824D177EA00006DDD /* WebService.swift */; };
+		00AFADAC24D17DC200006DDD /* GamesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADAB24D17DC200006DDD /* GamesViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		00136F9524D15E3F0081F199 /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
 		00AFADA524D172C500006DDD /* GamesData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesData.swift; sourceTree = "<group>"; };
 		00AFADA824D177EA00006DDD /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		00AFADAB24D17DC200006DDD /* GamesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				00136F7F24D152EB0081F199 /* SceneDelegate.swift */,
 				00AFADA724D177CB00006DDD /* WebService */,
 				00AFADA424D1724F00006DDD /* Model */,
+				00AFADAA24D17D9200006DDD /* ViewModel */,
 				00136F9224D15DE70081F199 /* Storyboards */,
 				00136F9124D15DDC0081F199 /* Conrollers */,
 				00136F8624D152F00081F199 /* Assets.xcassets */,
@@ -106,6 +109,14 @@
 				00AFADA824D177EA00006DDD /* WebService.swift */,
 			);
 			path = WebService;
+			sourceTree = "<group>";
+		};
+		00AFADAA24D17D9200006DDD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				00AFADAB24D17DC200006DDD /* GamesViewModel.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -182,6 +193,7 @@
 				00AFADA924D177EA00006DDD /* WebService.swift in Sources */,
 				00AFADA624D172C500006DDD /* GamesData.swift in Sources */,
 				00136F9624D15E3F0081F199 /* FavouritesViewController.swift in Sources */,
+				00AFADAC24D17DC200006DDD /* GamesViewModel.swift in Sources */,
 				00136F7E24D152EB0081F199 /* AppDelegate.swift in Sources */,
 				00136F9424D15E180081F199 /* GamesViewController.swift in Sources */,
 				00136F8024D152EB0081F199 /* SceneDelegate.swift in Sources */,
