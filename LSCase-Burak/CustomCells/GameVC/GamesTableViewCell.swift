@@ -19,4 +19,14 @@ class GamesTableViewCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    func setView(name: String?, meta: Int?, genre: [Genres]?) {
+        gameBackgroundImageView.image = UIImage(named: "kayak")
+        if let name = name{
+            gameNameLabel.text = name
+        }
+        if let meta = meta {
+            gameMetacriticLabel.text = "\(meta)"
+        }
+    }
 }

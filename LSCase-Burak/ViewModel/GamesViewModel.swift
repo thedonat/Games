@@ -19,9 +19,7 @@ struct GamesListViewModel {
         let game = self.gameList[index]
         return GamesViewModel(game: game)
     }
-    
 }
-
 
 struct GamesViewModel {
     let game: Results

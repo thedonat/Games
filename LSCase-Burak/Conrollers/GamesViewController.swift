@@ -11,7 +11,7 @@ import UIKit
 class GamesViewController: UIViewController {
 
     @IBOutlet weak var gamesTableView: UITableView!
-    let url = "https://api.rawg.io/api/games?page=2&page_size=10&search=gtav"
+    let url = "https://api.rawg.io/api/games?page=2&page_size=10&search=witcher"
     var gameListViewModel: GamesListViewModel!
     
     override func viewDidLoad() {
@@ -38,12 +38,7 @@ extension GamesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = gamesTableView.dequeueReusableCell(withIdentifier: "GamesTableViewCell", for: indexPath) as! GamesTableViewCell
         let vm = self.gameListViewModel.cellForRowAt(indexPath.row)
-        if let name = vm.name, let metacritic = vm.metacritic, let genre = vm.genres {
-            cell.gameNameLabel.text = name
-            cell.gameMetacriticLabel.text = "metacritic: \(metacritic)"
-            cell.gameGenreLabel.text = genre[0].name
-            cell.gameBackgroundImageView.image = UIImage(named: "kayak")
-        }
+        cell.setView(name: vm.name, meta: vm.metacritic, genre: vm.genres)
         return cell
     }
 }
@@ -51,5 +46,11 @@ extension GamesViewController: UITableViewDataSource {
 extension GamesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 136
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let detailVC = storyboard.instantiateViewController(withIdentifier: "GameDetailsViewController") as! GameDetailsViewController
+        detailVC.getGameID = self.gameListViewModel.cellForRowAt(indexPath.row).id
+        navigationController?.pushViewController(detailVC, animated: true)
     }
 }
