@@ -66,4 +66,23 @@ extension GameDetailsViewController: UITableViewDataSource {
     }
 }
 
+extension GameDetailsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 2 {
+                let websiteUrl = self.gameDetailsViewModel.website
+                if let url = URL(string: websiteUrl) {
+                    UIApplication.shared.open(url)
+            }
+        }
+        
+        if indexPath.row == 1 {
+                let redditUrl = self.gameDetailsViewModel.redditUrl
+                if let url = URL(string: redditUrl) {
+                    print(url)
+                    UIApplication.shared.open(url)
+            }
+        }
+        
+    }
+}
 

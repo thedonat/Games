@@ -11,7 +11,7 @@ import UIKit
 class GamesViewController: UIViewController {
 
     @IBOutlet weak var gamesTableView: UITableView!
-    let url = "https://api.rawg.io/api/games?page=2&page_size=10&search=witcher"
+    let url = "https://api.rawg.io/api/games?page=2&page_size=10&search=gtav"
     var gameListViewModel: GamesListViewModel!
     
     override func viewDidLoad() {

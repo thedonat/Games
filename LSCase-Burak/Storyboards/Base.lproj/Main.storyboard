@@ -37,8 +37,8 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="VWe-Id-LMQ">
-                                                    <rect key="frame" x="152" y="27" width="226" height="24"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                                    <rect key="frame" x="152" y="15.999999999999998" width="246" height="23.333333333333329"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -56,13 +56,13 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="VWe-Id-LMQ" firstAttribute="leading" secondItem="QHa-54-wy2" secondAttribute="trailing" constant="16" id="64B-ML-epc"/>
                                                 <constraint firstItem="QHa-54-wy2" firstAttribute="top" secondItem="f4H-qn-kt4" secondAttribute="top" constant="16" id="7T2-cJ-rKa"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="GkJ-e7-wHd" secondAttribute="trailing" constant="16" id="7ib-kH-q48"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="g46-6E-W4V" secondAttribute="bottom" constant="12" id="97y-HY-XKu"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="VWe-Id-LMQ" secondAttribute="trailing" constant="16" id="DyD-ux-4vd"/>
-                                                <constraint firstItem="VWe-Id-LMQ" firstAttribute="leading" secondItem="QHa-54-wy2" secondAttribute="trailing" constant="16" id="Nci-lx-8yA"/>
+                                                <constraint firstAttribute="trailing" secondItem="VWe-Id-LMQ" secondAttribute="trailing" constant="16" id="Bj9-Yk-bgM"/>
                                                 <constraint firstItem="g46-6E-W4V" firstAttribute="top" secondItem="GkJ-e7-wHd" secondAttribute="bottom" constant="8" id="RcQ-kj-SD9"/>
-                                                <constraint firstItem="VWe-Id-LMQ" firstAttribute="top" secondItem="f4H-qn-kt4" secondAttribute="topMargin" constant="16" id="U1T-07-xF6"/>
+                                                <constraint firstItem="VWe-Id-LMQ" firstAttribute="top" secondItem="f4H-qn-kt4" secondAttribute="top" constant="16" id="VnQ-gq-d4W"/>
                                                 <constraint firstAttribute="bottom" secondItem="QHa-54-wy2" secondAttribute="bottom" constant="16" id="dGE-IF-pvt"/>
                                                 <constraint firstItem="GkJ-e7-wHd" firstAttribute="leading" secondItem="QHa-54-wy2" secondAttribute="trailing" constant="16" id="eOW-cb-pbL"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="g46-6E-W4V" secondAttribute="trailing" constant="16" id="jF3-93-3LL"/>
