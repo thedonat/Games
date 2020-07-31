@@ -49,7 +49,7 @@ class GameDetailsViewController: UIViewController {
             }
         }
     }
-     
+    
     @objc func addTapped() {
         if let favouritedGameId = gameDetailsViewModel.getGameID {
             if !favouriteGameIDs.contains(favouritedGameId) {
@@ -96,9 +96,9 @@ extension GameDetailsViewController: UITableViewDelegate {
             }
         }
         if indexPath.row == 1 {
-                if let redditUrl = self.gameDetailsViewModel.redditUrl,
-                    let url = URL(string: redditUrl) {
-                    UIApplication.shared.open(url)
+            if let redditUrl = self.gameDetailsViewModel.redditUrl,
+                let url = URL(string: redditUrl) {
+                UIApplication.shared.open(url)
             }
         }
     }

@@ -13,6 +13,7 @@ class GamesViewController: UIViewController{
     @IBOutlet weak var gamesTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     var searchText: String = String()
+    let totalEntries: Int = Int()
     
     private var gameListViewModel: GamesListViewModel = GamesListViewModel()
     let searchController = UISearchController(searchResultsController: nil)
@@ -53,6 +54,15 @@ extension GamesViewController: UITableViewDelegate {
         detailVC.gameDetailsViewModel.getGameID = self.gameListViewModel.cellForRow(at: indexPath.row)?.id
         navigationController?.pushViewController(detailVC, animated: true)
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let totalRow = gameListViewModel.searchResult.count
+        if indexPath.row == totalRow - 1 {
+            if totalRow % gameListViewModel.perPage == 0 {
+                gameListViewModel.fetchNextPage()
+            }
+        }
+    }
 }
 
 extension GamesViewController: GamesListViewModelProtocol {
@@ -67,12 +77,17 @@ extension GamesViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let searchText = searchBar.text  else {return}
         if searchText == "" {
-            gameListViewModel.url = "https://api.rawg.io/api/games?page_size=10&page=1"
+            gameListViewModel.getSearchedText = ""
+            gameListViewModel.currentPage = 1
+            gameListViewModel.searchResult = []
+            gameListViewModel.url = "https://api.rawg.io/api/games?page_size=10"
             self.getData()
             print("There is no text")
         } else {
-            let searchedText = searchText.replacingOccurrences(of: " ", with: "")
-            gameListViewModel.url += "&search=\(searchedText)"
+            gameListViewModel.currentPage = 1
+            gameListViewModel.searchResult = []
+            let searchedText = searchText.replacingOccurrences(of: " ", with: "+")
+            gameListViewModel.getSearchedText = searchedText
             self.getData()
             print(searchText)
         }

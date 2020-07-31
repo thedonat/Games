@@ -9,12 +9,12 @@
 import UIKit
 
 class FavouritesViewController: UIViewController {
-
+    
     @IBOutlet weak var favouritesTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
     }
 }
 

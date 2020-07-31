@@ -9,10 +9,10 @@
 import Foundation
 
 struct GamesData: Codable {
-    let results: [Results]
+    let results: [SearchResult]
 }
 
-struct Results: Codable {
+struct SearchResult: Codable {
     let name: String?
     let id: Int?
     let metacritic: Int?

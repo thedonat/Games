@@ -78,7 +78,7 @@
 			children = (
 				00136F7D24D152EB0081F199 /* AppDelegate.swift */,
 				00136F7F24D152EB0081F199 /* SceneDelegate.swift */,
-				00350BD324D4733C008E56C1 /* Constants */,
+				00350BD324D4733C008E56C1 /* Helpers */,
 				00AFADAD24D188E100006DDD /* CustomCells */,
 				00AFADA724D177CB00006DDD /* WebService */,
 				00AFADA424D1724F00006DDD /* Model */,
@@ -110,11 +110,11 @@
 			path = Storyboards;
 			sourceTree = "<group>";
 		};
-		00350BD324D4733C008E56C1 /* Constants */ = {
+		00350BD324D4733C008E56C1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
 			);
-			path = Constants;
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		00AFADA424D1724F00006DDD /* Model */ = {
@@ -147,7 +147,7 @@
 			isa = PBXGroup;
 			children = (
 				00AFADB724D1AD9900006DDD /* GameVC */,
-				00AFADB824D1ADAA00006DDD /* detailsVC */,
+				00AFADB824D1ADAA00006DDD /* GameDetailsVC */,
 			);
 			path = CustomCells;
 			sourceTree = "<group>";
@@ -160,13 +160,13 @@
 			path = GameVC;
 			sourceTree = "<group>";
 		};
-		00AFADB824D1ADAA00006DDD /* detailsVC */ = {
+		00AFADB824D1ADAA00006DDD /* GameDetailsVC */ = {
 			isa = PBXGroup;
 			children = (
 				00AFADB924D1ADD100006DDD /* DescriptionTableViewCell.swift */,
 				00AFADBD24D1AE0200006DDD /* VisitWebsiteTableViewCell.swift */,
 			);
-			path = detailsVC;
+			path = GameDetailsVC;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

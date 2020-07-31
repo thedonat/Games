@@ -13,24 +13,34 @@ protocol GamesListViewModelProtocol: class {
 }
 
 class GamesListViewModel {
-    var url = "https://api.rawg.io/api/games?page_size=10&page=1"
-    private var gamesData: GamesData?
+    var url = "https://api.rawg.io/api/games?page_size=10"
+    var searchResult: [SearchResult?] = []
     weak var delegate: GamesListViewModelProtocol?
+    var currentPage = 1
+    var perPage: Int = 10
+    var getSearchedText = String()
     
     func getData() {
-        WebService().performRequest(url: url, completion: { (games: GamesData) in
-            self.gamesData = games
+        let searchingUrl = "\(url)&page=\(currentPage)&search=\(getSearchedText)"
+        print(searchingUrl)
+        WebService().performRequest(url: searchingUrl, completion: { (games: GamesData) in
+            self.searchResult.append(contentsOf: games.results)
             self.delegate?.setData()
         }) { (error) in
         }
     }
     
+    func fetchNextPage() {
+        currentPage += 1
+        getData()
+    }
+    
     var numberOfRows: Int {
-        return gamesData?.results.count ?? 0
+        return searchResult.count
     }
     
     func cellForRow(at index: Int) -> GamesViewModel? {
-        if let game = self.gamesData?.results[index] {
+        if let game = self.searchResult[index] {
             return GamesViewModel(game: game)
         }
         return nil
@@ -38,9 +48,9 @@ class GamesListViewModel {
 }
 
 class GamesViewModel {
-    private let game: Results
+    private let game: SearchResult
     
-    init(game: Results) {
+    init(game: SearchResult) {
         self.game = game
     }
     
