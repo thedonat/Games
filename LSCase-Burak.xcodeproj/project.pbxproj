@@ -78,6 +78,7 @@
 			children = (
 				00136F7D24D152EB0081F199 /* AppDelegate.swift */,
 				00136F7F24D152EB0081F199 /* SceneDelegate.swift */,
+				00350BD324D4733C008E56C1 /* Constants */,
 				00AFADAD24D188E100006DDD /* CustomCells */,
 				00AFADA724D177CB00006DDD /* WebService */,
 				00AFADA424D1724F00006DDD /* Model */,
@@ -107,6 +108,13 @@
 				00136F8824D152F00081F199 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		00350BD324D4733C008E56C1 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		00AFADA424D1724F00006DDD /* Model */ = {

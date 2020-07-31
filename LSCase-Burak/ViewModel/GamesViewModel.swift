@@ -13,7 +13,7 @@ protocol GamesListViewModelProtocol: class {
 }
 
 class GamesListViewModel {
-    private let url = "https://api.rawg.io/api/games?page=2&page_size=10&search=gtav"
+    var url = "https://api.rawg.io/api/games?page_size=10&page=1"
     private var gamesData: GamesData?
     weak var delegate: GamesListViewModelProtocol?
     

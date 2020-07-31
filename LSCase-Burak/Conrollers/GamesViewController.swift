@@ -8,13 +8,18 @@
 
 import UIKit
 
-class GamesViewController: UIViewController {
-
-    @IBOutlet weak var gamesTableView: UITableView!
-    private var gameListViewModel: GamesListViewModel = GamesListViewModel()
+class GamesViewController: UIViewController{
     
+    @IBOutlet weak var gamesTableView: UITableView!
+    @IBOutlet weak var searchBar: UISearchBar!
+    var searchText: String = String()
+    
+    private var gameListViewModel: GamesListViewModel = GamesListViewModel()
+    let searchController = UISearchController(searchResultsController: nil)
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.gamesTableView.keyboardDismissMode = .onDrag //Dismissing keyboard when user scroll down or tap on the tableview.
+        searchBar.delegate = self
         getData()
     }
     
@@ -54,6 +59,22 @@ extension GamesViewController: GamesListViewModelProtocol {
     func setData() {
         DispatchQueue.main.async {
             self.gamesTableView.reloadData()
+        }
+    }
+}
+
+extension GamesViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        guard let searchText = searchBar.text  else {return}
+        if searchText == "" {
+            gameListViewModel.url = "https://api.rawg.io/api/games?page_size=10&page=1"
+            self.getData()
+            print("There is no text")
+        } else {
+            let searchedText = searchText.replacingOccurrences(of: " ", with: "")
+            gameListViewModel.url += "&search=\(searchedText)"
+            self.getData()
+            print(searchText)
         }
     }
 }

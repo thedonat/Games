@@ -99,6 +99,7 @@
                     <navigationItem key="navigationItem" title="Games" id="OaG-A7-4wJ"/>
                     <connections>
                         <outlet property="gamesTableView" destination="cWN-j2-4gs" id="3hV-Lb-020"/>
+                        <outlet property="searchBar" destination="E6p-bh-Oli" id="6t0-Rg-kNx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
