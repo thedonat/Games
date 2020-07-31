@@ -8,21 +8,48 @@
 
 import Foundation
 
-struct GameDetailsViewModel {
-    let game: GameDetailsData
+protocol GameDetailsViewModelProtocol: class {
+    func setData()
+}
+
+
+class GameDetailsViewModel {
+    private var game: GameDetailsData?
+    var getGameID: Int?
+    let baseUrl = "https://api.rawg.io/api/games/"
+    weak var delegate: GameDetailsViewModelProtocol?
     
-    var name: String {
-        return game.name
+    init(game: GameDetailsData? = nil) {
+        self.game = game
     }
     
-    var description: String {
-        return game.description_raw
+    func getData() {
+        if let gameID = getGameID {
+          let detailsUrl = "\(baseUrl)\(gameID)"
+          
+          WebService().performRequest(url: detailsUrl, completion: { (gameDetails: GameDetailsData) in
+              self.game = gameDetails
+              self.delegate?.setData() //inform listeners that data has came.
+          }) { (error) in
+              
+          }
+        }
     }
     
-    var redditUrl: String {
-        return game.reddit_url
+    var name: String? {
+        return game?.name
     }
-    var website: String {
-        return game.website
+    
+    var description: String? {
+        return game?.description_raw
+    }
+    
+    var redditUrl: String? {
+        return game?.reddit_url
+    }
+    var website: String? {
+        return game?.website
     }
 }
+
+

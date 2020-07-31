@@ -20,13 +20,15 @@ class GamesTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    func setView(name: String?, meta: Int?, genre: [Genres]?) {
+    func setView(name: String?, meta: Int?, genre: String?) {
         gameBackgroundImageView.image = UIImage(named: "kayak")
-        if let name = name{
-            gameNameLabel.text = name
-        }
+        gameNameLabel.text = name
+        gameGenreLabel.text = genre
+        
         if let meta = meta {
-            gameMetacriticLabel.text = "\(meta)"
+            gameMetacriticLabel.text = String(meta)
+        } else {
+            gameMetacriticLabel.text = ""
         }
     }
 }

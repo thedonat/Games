@@ -9,11 +9,12 @@
 import Foundation
 
 struct WebService {
-    func performRequest<T: Decodable>(url: String, completion: @escaping (T) -> Void) {
+    func performRequest<T: Decodable>(url: String, completion: @escaping (T) -> Void, errorCompletion: @escaping (Error?) -> Void) {
         if let url = URL(string: url) {
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if error != nil {
-                    print("DEBUH: ERROR", error?.localizedDescription as Any)
+                    errorCompletion(error)
+                    print("DEBUG: ERROR", error?.localizedDescription as Any)
                 } else {
                     if let safeData = data {
                         if let decodedData = try? JSONDecoder().decode(T.self, from: safeData) {

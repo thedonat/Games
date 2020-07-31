@@ -8,21 +8,41 @@
 
 import Foundation
 
-struct GamesListViewModel {
-    let gameList: [Results]
+protocol GamesListViewModelProtocol: class {
+    func setData()
+}
+
+class GamesListViewModel {
+    private let url = "https://api.rawg.io/api/games?page=2&page_size=10&search=gtav"
+    private var gamesData: GamesData?
+    weak var delegate: GamesListViewModelProtocol?
     
-    func numberOfRowsInSection() -> Int {
-        return gameList.count
+    func getData() {
+        WebService().performRequest(url: url, completion: { (games: GamesData) in
+            self.gamesData = games
+            self.delegate?.setData()
+        }) { (error) in
+        }
     }
     
-    func cellForRowAt(_ index: Int) -> GamesViewModel {
-        let game = self.gameList[index]
-        return GamesViewModel(game: game)
+    var numberOfRows: Int {
+        return gamesData?.results.count ?? 0
+    }
+    
+    func cellForRow(at index: Int) -> GamesViewModel? {
+        if let game = self.gamesData?.results[index] {
+            return GamesViewModel(game: game)
+        }
+        return nil
     }
 }
 
-struct GamesViewModel {
-    let game: Results
+class GamesViewModel {
+    private let game: Results
+    
+    init(game: Results) {
+        self.game = game
+    }
     
     var name: String? {
         return game.name
@@ -40,7 +60,18 @@ struct GamesViewModel {
         return game.background_image
     }
     
-    var genres: [Genres]? {
-        return game.genres
+    var genreData: String {
+        var genresString: String = ""
+        
+        if let genres = game.genres {
+            for (index, genre) in genres.enumerated() {
+                genresString += genre.name
+                
+                if index < genres.count - 1 {
+                    genresString += ", "
+                }
+            }
+        }
+        return genresString
     }
 }

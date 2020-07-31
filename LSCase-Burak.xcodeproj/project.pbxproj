@@ -22,7 +22,6 @@
 		00AFADB424D1A7E400006DDD /* GameDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADB324D1A7E400006DDD /* GameDetailsViewModel.swift */; };
 		00AFADB624D1ACB300006DDD /* GameDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADB524D1ACB300006DDD /* GameDetailsViewController.swift */; };
 		00AFADBA24D1ADD100006DDD /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADB924D1ADD100006DDD /* DescriptionTableViewCell.swift */; };
-		00AFADBC24D1ADF000006DDD /* VisitRedditTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADBB24D1ADF000006DDD /* VisitRedditTableViewCell.swift */; };
 		00AFADBE24D1AE0200006DDD /* VisitWebsiteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADBD24D1AE0200006DDD /* VisitWebsiteTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +43,6 @@
 		00AFADB324D1A7E400006DDD /* GameDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsViewModel.swift; sourceTree = "<group>"; };
 		00AFADB524D1ACB300006DDD /* GameDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsViewController.swift; sourceTree = "<group>"; };
 		00AFADB924D1ADD100006DDD /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
-		00AFADBB24D1ADF000006DDD /* VisitRedditTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitRedditTableViewCell.swift; sourceTree = "<group>"; };
 		00AFADBD24D1AE0200006DDD /* VisitWebsiteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitWebsiteTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -159,7 +157,6 @@
 			children = (
 				00AFADB924D1ADD100006DDD /* DescriptionTableViewCell.swift */,
 				00AFADBD24D1AE0200006DDD /* VisitWebsiteTableViewCell.swift */,
-				00AFADBB24D1ADF000006DDD /* VisitRedditTableViewCell.swift */,
 			);
 			path = detailsVC;
 			sourceTree = "<group>";
@@ -235,7 +232,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00AFADBC24D1ADF000006DDD /* VisitRedditTableViewCell.swift in Sources */,
 				00AFADA924D177EA00006DDD /* WebService.swift in Sources */,
 				00AFADB424D1A7E400006DDD /* GameDetailsViewModel.swift in Sources */,
 				00AFADA624D172C500006DDD /* GamesData.swift in Sources */,

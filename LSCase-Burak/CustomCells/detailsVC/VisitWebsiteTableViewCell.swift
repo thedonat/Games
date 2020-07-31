@@ -9,9 +9,7 @@
 import UIKit
 
 class VisitWebsiteTableViewCell: UITableViewCell {
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 }

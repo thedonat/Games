@@ -14,31 +14,20 @@ class GameDetailsViewController: UIViewController {
     @IBOutlet weak var gameTopImageView: UIImageView!
     @IBOutlet weak var gameNameLabel: UILabel!
     
-    var getGameID: Int?
-    var gameDetailsViewModel: GameDetailsViewModel!
-    let baseUrl = "https://api.rawg.io/api/games/"
+    var gameDetailsViewModel: GameDetailsViewModel = GameDetailsViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getData()
+        retrieveData()
     }
     
-    func getData() {
-        if let gameID = getGameID {
-            let detailsUrl = "\(baseUrl)\(gameID)"
-            WebService().performRequest(url: detailsUrl) { (gameDetails: GameDetailsData) in
-                self.gameDetailsViewModel = GameDetailsViewModel(game: gameDetails)
-                DispatchQueue.main.async {
-                    self.configureUI()
-                    self.gameDetailsTableView.reloadData()
-                }
-            }
-        }
+    private func retrieveData() {
+        gameDetailsViewModel.delegate = self
+        gameDetailsViewModel.getData()
     }
     
     func configureUI() {
-        let vm = gameDetailsViewModel
-        gameNameLabel.text = vm?.name
+        gameNameLabel.text = gameDetailsViewModel.name
         gameTopImageView.image = UIImage(named: "kayak")
     }
 }
@@ -47,20 +36,19 @@ extension GameDetailsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let vm = gameDetailsViewModel
         if indexPath.row == 0 {
             let cell = gameDetailsTableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell", for: indexPath) as! DescriptionTableViewCell
-            cell.setView(descriptionTitle: "Game Description", description: vm?.description)
-            return cell
-        } else if indexPath.row == 1 {
-            let cell = gameDetailsTableView.dequeueReusableCell(withIdentifier: "VisitRedditTableViewCell", for: indexPath) as! VisitRedditTableViewCell
-            cell.textLabel?.text = "Visit Reddit"
+            cell.setView(descriptionTitle: "Game Description", description: vm.description)
             return cell
         } else {
             let cell = gameDetailsTableView.dequeueReusableCell(withIdentifier: "VisitWebsiteTableViewCell", for: indexPath) as! VisitWebsiteTableViewCell
-            cell.textLabel?.text = "Visit Website"
+            if indexPath.row == 1 {
+                cell.textLabel?.text = "Visit Reddit"
+            } else {
+                cell.textLabel?.text = "Visit Website"
+            }
             return cell
         }
     }
@@ -69,20 +57,28 @@ extension GameDetailsViewController: UITableViewDataSource {
 extension GameDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
-                let websiteUrl = self.gameDetailsViewModel.website
-                if let url = URL(string: websiteUrl) {
-                    UIApplication.shared.open(url)
+            if let websiteUrl = self.gameDetailsViewModel.website,
+                let url = URL(string: websiteUrl) {
+                
+                UIApplication.shared.open(url)
             }
         }
-        
         if indexPath.row == 1 {
-                let redditUrl = self.gameDetailsViewModel.redditUrl
-                if let url = URL(string: redditUrl) {
+                if let redditUrl = self.gameDetailsViewModel.redditUrl,
+                    let url = URL(string: redditUrl) {
+                    
                     print(url)
                     UIApplication.shared.open(url)
             }
         }
-        
     }
 }
 
+extension GameDetailsViewController: GameDetailsViewModelProtocol {
+    func setData() {
+        DispatchQueue.main.async {
+            self.gameDetailsTableView.reloadData()
+            self.configureUI()
+        }
+    }
+}
