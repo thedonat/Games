@@ -23,10 +23,10 @@ class GameDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.gameDetailsTableView.tableFooterView = UIView() //Deleting separators between empty rows
         setNavigationBar()
         retrieveData()
     }
-    
     
     private func retrieveData() {
         gameDetailsViewModel.delegate = self
