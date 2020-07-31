@@ -15,11 +15,17 @@ class GameDetailsViewController: UIViewController {
     @IBOutlet weak var gameNameLabel: UILabel!
     
     var gameDetailsViewModel: GameDetailsViewModel = GameDetailsViewModel()
+    var gameListViewModel: GamesListViewModel = GamesListViewModel()
+    var favouriteGameIDs: [Int?] = []
+    var favGames: [GamesData?] = []
+    let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNavigationBar()
         retrieveData()
     }
+    
     
     private func retrieveData() {
         gameDetailsViewModel.delegate = self
@@ -29,6 +35,33 @@ class GameDetailsViewController: UIViewController {
     func configureUI() {
         gameNameLabel.text = gameDetailsViewModel.name
         gameTopImageView.image = UIImage(named: "kayak")
+    }
+    
+    func setNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favourite", style: .plain, target: self, action: #selector(addTapped))
+        self.navigationItem.largeTitleDisplayMode = .never
+        if let favouritedGameIDs = defaults.value(forKey: "selectedIds") as? [Int] {
+            self.favouriteGameIDs = favouritedGameIDs
+            if let favouritedGameID = gameDetailsViewModel.getGameID {
+                if favouriteGameIDs.contains(favouritedGameID) {
+                    navigationItem.rightBarButtonItem?.title = "Favourited"
+                }
+            }
+        }
+    }
+     
+    @objc func addTapped() {
+        if let favouritedGameId = gameDetailsViewModel.getGameID {
+            if !favouriteGameIDs.contains(favouritedGameId) {
+                favouriteGameIDs.append(favouritedGameId)
+                defaults.set(favouriteGameIDs, forKey: "selectedIds")
+                navigationItem.rightBarButtonItem?.title = "Favourited"
+            } else {
+                favouriteGameIDs = favouriteGameIDs.filter { $0 != favouritedGameId }
+                defaults.set(favouriteGameIDs, forKey: "selectedIds")
+                navigationItem.rightBarButtonItem?.title = "Favourite"
+            }
+        }
     }
 }
 
@@ -59,15 +92,12 @@ extension GameDetailsViewController: UITableViewDelegate {
         if indexPath.row == 2 {
             if let websiteUrl = self.gameDetailsViewModel.website,
                 let url = URL(string: websiteUrl) {
-                
                 UIApplication.shared.open(url)
             }
         }
         if indexPath.row == 1 {
                 if let redditUrl = self.gameDetailsViewModel.redditUrl,
                     let url = URL(string: redditUrl) {
-                    
-                    print(url)
                     UIApplication.shared.open(url)
             }
         }

@@ -26,7 +26,6 @@ class GameDetailsViewModel {
     func getData() {
         if let gameID = getGameID {
           let detailsUrl = "\(baseUrl)\(gameID)"
-          
           WebService().performRequest(url: detailsUrl, completion: { (gameDetails: GameDetailsData) in
               self.game = gameDetails
               self.delegate?.setData() //inform listeners that data has came.
@@ -36,8 +35,13 @@ class GameDetailsViewModel {
         }
     }
     
+    
     var name: String? {
         return game?.name
+    }
+    
+    var gameID: Int? {
+        return game?.id
     }
     
     var description: String? {

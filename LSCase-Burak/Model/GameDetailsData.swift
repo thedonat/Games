@@ -9,6 +9,7 @@
 import Foundation
 
 struct GameDetailsData: Decodable {
+    let id: Int
     let name: String
     let description_raw: String
     let reddit_url: String
