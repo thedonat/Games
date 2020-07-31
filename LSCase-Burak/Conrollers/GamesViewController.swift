@@ -12,15 +12,14 @@ class GamesViewController: UIViewController{
     
     @IBOutlet weak var gamesTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-    var searchText: String = String()
-    let totalEntries: Int = Int()
-    
+    private var searchText: String = String()
     private var gameListViewModel: GamesListViewModel = GamesListViewModel()
-    let searchController = UISearchController(searchResultsController: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.gamesTableView.keyboardDismissMode = .onDrag //Dismissing keyboard when user scroll down or tap on the tableview.
         searchBar.delegate = self
+        gamesTableView.isHidden = true
         getData()
     }
     
@@ -38,7 +37,7 @@ extension GamesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = gamesTableView.dequeueReusableCell(withIdentifier: "GamesTableViewCell", for: indexPath) as! GamesTableViewCell
         let vm = self.gameListViewModel.cellForRow(at: indexPath.row)
-        cell.setView(name: vm?.name, meta: vm?.metacritic, genre: vm?.genreData)
+        cell.setView(name: vm?.name, meta: vm?.metacritic, genre: vm?.genreData, imageUrl: vm?.background_image)
         return cell
     }
 }
@@ -68,6 +67,7 @@ extension GamesViewController: UITableViewDelegate {
 extension GamesViewController: GamesListViewModelProtocol {
     func setData() {
         DispatchQueue.main.async {
+            self.gamesTableView.isHidden = false
             self.gamesTableView.reloadData()
         }
     }

@@ -14,8 +14,8 @@ protocol GamesListViewModelProtocol: class {
 
 class GamesListViewModel {
     var url = "https://api.rawg.io/api/games?page_size=10"
-    var searchResult: [SearchResult?] = []
     weak var delegate: GamesListViewModelProtocol?
+    var searchResult: [SearchResult?] = []
     var currentPage = 1
     var perPage: Int = 10
     var getSearchedText = String()

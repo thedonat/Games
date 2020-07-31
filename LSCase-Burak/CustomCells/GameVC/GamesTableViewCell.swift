@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class GamesTableViewCell: UITableViewCell {
     @IBOutlet weak var gameBackgroundImageView: UIImageView!
@@ -20,11 +21,15 @@ class GamesTableViewCell: UITableViewCell {
         // Initialization code
     }
     
-    func setView(name: String?, meta: Int?, genre: String?) {
+    func setView(name: String?, meta: Int?, genre: String?, imageUrl: String? ) {
         gameBackgroundImageView.image = UIImage(named: "kayak")
         gameNameLabel.text = name
         gameGenreLabel.text = genre
         
+        if let imageUrl = imageUrl {
+            let url = URL(string: imageUrl)
+            gameBackgroundImageView.kf.setImage(with: url)
+        }
         if let meta = meta {
             gameMetacriticLabel.text = String(meta)
         } else {

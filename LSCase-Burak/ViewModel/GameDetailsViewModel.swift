@@ -48,6 +48,10 @@ class GameDetailsViewModel {
         return game?.description_raw
     }
     
+    var background_image: String? {
+        return game?.background_image
+    }
+    
     var redditUrl: String? {
         return game?.reddit_url
     }

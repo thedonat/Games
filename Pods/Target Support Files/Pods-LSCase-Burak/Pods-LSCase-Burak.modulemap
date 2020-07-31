@@ -1,0 +1,6 @@
+module Pods_LSCase_Burak {
+  umbrella header "Pods-LSCase-Burak-umbrella.h"
+
+  export *
+  module * { export * }
+}

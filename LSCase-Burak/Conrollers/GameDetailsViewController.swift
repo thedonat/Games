@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class GameDetailsViewController: UIViewController {
     
@@ -34,7 +35,10 @@ class GameDetailsViewController: UIViewController {
     
     func configureUI() {
         gameNameLabel.text = gameDetailsViewModel.name
-        gameTopImageView.image = UIImage(named: "kayak")
+        if let imageUrl = gameDetailsViewModel.background_image {
+            let url = URL(string: imageUrl)
+            gameTopImageView.kf.setImage(with: url)
+        }
     }
     
     func setNavigationBar() {

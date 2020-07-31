@@ -12,6 +12,7 @@ struct GameDetailsData: Decodable {
     let id: Int
     let name: String
     let description_raw: String
+    let background_image: String
     let reddit_url: String
     let website: String
 }
