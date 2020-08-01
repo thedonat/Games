@@ -22,7 +22,6 @@ class GamesTableViewCell: UITableViewCell {
     }
     
     func setView(name: String?, meta: Int?, genre: String?, imageUrl: String? ) {
-        gameBackgroundImageView.image = UIImage(named: "kayak")
         gameNameLabel.text = name
         gameGenreLabel.text = genre
         
@@ -31,9 +30,18 @@ class GamesTableViewCell: UITableViewCell {
             gameBackgroundImageView.kf.setImage(with: url)
         }
         if let meta = meta {
-            gameMetacriticLabel.text = String(meta)
+            let metacritic = "metacritic: \(meta)"
+            setAttributedString(text: metacritic, range: "\(meta)")
+            
         } else {
             gameMetacriticLabel.text = ""
         }
+    }
+    
+    func setAttributedString(text: String, range: String) {
+        let range = (text as NSString).range(of: range)
+        let attributedString = NSMutableAttributedString(string: text)
+        attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: range)
+        self.gameMetacriticLabel.attributedText = attributedString
     }
 }

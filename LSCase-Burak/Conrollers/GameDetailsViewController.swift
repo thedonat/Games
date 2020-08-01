@@ -19,7 +19,7 @@ class GameDetailsViewController: UIViewController {
     var gameListViewModel: GamesListViewModel = GamesListViewModel()
     var favouriteGameIDs: [Int?] = []
     var favGames: [GamesData?] = []
-    let defaults = UserDefaults.standard
+    private let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +77,8 @@ extension GameDetailsViewController: UITableViewDataSource {
         let vm = gameDetailsViewModel
         if indexPath.row == 0 {
             let cell = gameDetailsTableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell", for: indexPath) as! DescriptionTableViewCell
-            cell.setView(descriptionTitle: "Game Description", description: vm.description)
+            cell.setView(descriptionTitle: "Game Description",
+                         description: vm.description)
             return cell
         } else {
             let cell = gameDetailsTableView.dequeueReusableCell(withIdentifier: "VisitWebsiteTableViewCell", for: indexPath) as! VisitWebsiteTableViewCell

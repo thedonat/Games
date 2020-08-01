@@ -13,14 +13,28 @@ class GamesViewController: UIViewController{
     @IBOutlet weak var gamesTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     private var searchText: String = String()
+    private var selectedGameIDs : [Int] = []
     private var gameListViewModel: GamesListViewModel = GamesListViewModel()
+    private let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.gamesTableView.keyboardDismissMode = .onDrag //Dismissing keyboard when user scroll down or tap on the tableview.
+        configureUI()
         searchBar.delegate = self
-        gamesTableView.isHidden = true
         getData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        defaults.set(selectedGameIDs, forKey: "selectedGameIDs")
+    }
+    
+    private func configureUI() {
+        self.gamesTableView.keyboardDismissMode = .onDrag //Dismissing keyboard when user scroll down or tap on the tableview.
+        gamesTableView.isHidden = true
+        if let selectedGames = defaults.value(forKey: "selectedGameIDs") as? [Int] {
+            selectedGameIDs = selectedGames
+        }
     }
     
     private func getData() {
@@ -37,7 +51,17 @@ extension GamesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = gamesTableView.dequeueReusableCell(withIdentifier: "GamesTableViewCell", for: indexPath) as! GamesTableViewCell
         let vm = self.gameListViewModel.cellForRow(at: indexPath.row)
-        cell.setView(name: vm?.name, meta: vm?.metacritic, genre: vm?.genreData, imageUrl: vm?.background_image)
+        cell.setView(name: vm?.name,
+                     meta: vm?.metacritic,
+                     genre: vm?.genreData,
+                     imageUrl: vm?.background_image)
+        if let selectedGameID = gameListViewModel.searchResult[indexPath.row]?.id {
+            if selectedGameIDs.contains(selectedGameID) {
+                cell.contentView.backgroundColor = .systemTeal
+            } else {
+                cell.contentView.backgroundColor = .clear
+            }
+        }
         return cell
     }
 }
@@ -52,6 +76,14 @@ extension GamesViewController: UITableViewDelegate {
         let detailVC = storyboard.instantiateViewController(withIdentifier: "GameDetailsViewController") as! GameDetailsViewController
         detailVC.gameDetailsViewModel.getGameID = self.gameListViewModel.cellForRow(at: indexPath.row)?.id
         navigationController?.pushViewController(detailVC, animated: true)
+        
+        if let selectedGameID = gameListViewModel.searchResult[indexPath.row]?.id {
+            if !selectedGameIDs.contains(selectedGameID) {
+                selectedGameIDs.append(selectedGameID)
+                let cell = gamesTableView.cellForRow(at: indexPath)
+                cell?.contentView.backgroundColor = .systemTeal
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
