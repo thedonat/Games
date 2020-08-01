@@ -57,7 +57,7 @@ extension GamesViewController: UITableViewDataSource {
                      imageUrl: vm?.background_image)
         if let selectedGameID = gameListViewModel.searchResult[indexPath.row]?.id {
             if selectedGameIDs.contains(selectedGameID) {
-                cell.contentView.backgroundColor = .systemTeal
+                cell.contentView.backgroundColor = UIColor(named: "selectedBackgroundColor")
             } else {
                 cell.contentView.backgroundColor = .clear
             }
@@ -81,7 +81,7 @@ extension GamesViewController: UITableViewDelegate {
             if !selectedGameIDs.contains(selectedGameID) {
                 selectedGameIDs.append(selectedGameID)
                 let cell = gamesTableView.cellForRow(at: indexPath)
-                cell?.contentView.backgroundColor = .systemTeal
+                cell?.contentView.backgroundColor = UIColor(named: "selectedBackgroundColor")
             }
         }
     }
@@ -115,7 +115,7 @@ extension GamesViewController: UISearchBarDelegate {
             gameListViewModel.url = "https://api.rawg.io/api/games?page_size=10"
             self.getData()
             print("There is no text")
-        } else {
+        } else if searchText.count > 3{
             gameListViewModel.currentPage = 1
             gameListViewModel.searchResult = []
             let searchedText = searchText.replacingOccurrences(of: " ", with: "+")

@@ -19,11 +19,14 @@ class GamesListViewModel {
     var currentPage = 1
     var perPage: Int = 10
     var getSearchedText = String()
+    var numberOfRows: Int {
+        return searchResult.count
+    }
     
     func getData() {
         let searchingUrl = "\(url)&page=\(currentPage)&search=\(getSearchedText)"
         print(searchingUrl)
-        WebService().performRequest(url: searchingUrl, completion: { (games: GamesData) in
+        WebService().performRequest(url: searchingUrl, completion: { (games: GamesModel) in
             self.searchResult.append(contentsOf: games.results)
             self.delegate?.setData()
         }) { (error) in
@@ -33,10 +36,6 @@ class GamesListViewModel {
     func fetchNextPage() {
         currentPage += 1
         getData()
-    }
-    
-    var numberOfRows: Int {
-        return searchResult.count
     }
     
     func cellForRow(at index: Int) -> GamesViewModel? {

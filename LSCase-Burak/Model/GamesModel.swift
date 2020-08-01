@@ -1,5 +1,5 @@
 //
-//  GameDetailsData.swift
+//  GamesData.swift
 //  LSCase-Burak
 //
 //  Created by Burak Donat on 29.07.2020.
@@ -8,13 +8,18 @@
 
 import Foundation
 
-struct GameDetailsModel: Decodable {
-    let id: Int?
+struct GamesModel: Codable {
+    let results: [SearchResult]
+}
+
+struct SearchResult: Codable {
     let name: String?
-    let description_raw: String?
-    let background_image: String?
-    let reddit_url: String?
-    let website: String?
+    let id: Int?
     let metacritic: Int?
+    let background_image: String?
     let genres: [Genres]?
+}
+
+struct Genres: Codable {
+    let name: String
 }

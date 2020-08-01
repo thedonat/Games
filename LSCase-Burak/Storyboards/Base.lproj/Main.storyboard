@@ -262,12 +262,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="27U-Ay-K5D">
-                                <rect key="frame" x="0.0" y="140" width="414" height="673"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="27U-Ay-K5D">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavouritesTableViewCell" rowHeight="136" id="mVi-8f-bnp">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FavouritesTableViewCell" rowHeight="136" id="mVi-8f-bnp" customClass="GamesTableViewCell" customModule="LSCase_Burak" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="136"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mVi-8f-bnp" id="ae1-Mc-5es">
@@ -314,11 +313,27 @@
                                                 <constraint firstItem="YDL-WD-pCy" firstAttribute="leading" secondItem="8AK-Xq-C3h" secondAttribute="trailing" constant="16" id="wg3-ts-rZy"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="gameBackgroundImageView" destination="8AK-Xq-C3h" id="7pN-ct-p5y"/>
+                                            <outlet property="gameGenreLabel" destination="2AE-Nu-X2O" id="LE0-9A-ecU"/>
+                                            <outlet property="gameMetacriticLabel" destination="AyN-ZB-91a" id="lDJ-uh-ccs"/>
+                                            <outlet property="gameNameLabel" destination="YDL-WD-pCy" id="bSX-6L-2hJ"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="QWX-BC-iPr" id="rZ4-iW-qPF"/>
+                                    <outlet property="delegate" destination="QWX-BC-iPr" id="rY4-Dx-nLQ"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="27U-Ay-K5D" firstAttribute="bottom" secondItem="5vE-fg-4Nz" secondAttribute="bottom" id="EQV-u2-VgG"/>
+                            <constraint firstItem="27U-Ay-K5D" firstAttribute="trailing" secondItem="5vE-fg-4Nz" secondAttribute="trailing" id="K36-3h-aWu"/>
+                            <constraint firstItem="27U-Ay-K5D" firstAttribute="leading" secondItem="5vE-fg-4Nz" secondAttribute="leading" id="dgn-Ka-8W8"/>
+                            <constraint firstItem="27U-Ay-K5D" firstAttribute="top" secondItem="5vE-fg-4Nz" secondAttribute="top" id="sRJ-Y7-8dU"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="5vE-fg-4Nz"/>
                     </view>
                     <navigationItem key="navigationItem" title="Favourites" largeTitleDisplayMode="always" id="IpP-fa-Ufh"/>

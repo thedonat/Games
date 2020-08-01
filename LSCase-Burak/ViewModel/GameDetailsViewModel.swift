@@ -14,27 +14,26 @@ protocol GameDetailsViewModelProtocol: class {
 
 
 class GameDetailsViewModel {
-    private var game: GameDetailsData?
+    var game: GameDetailsModel?
     var getGameID: Int?
     let baseUrl = "https://api.rawg.io/api/games/"
     weak var delegate: GameDetailsViewModelProtocol?
     
-    init(game: GameDetailsData? = nil) {
+    init(game: GameDetailsModel? = nil) {
         self.game = game
     }
     
     func getData() {
         if let gameID = getGameID {
-          let detailsUrl = "\(baseUrl)\(gameID)"
-          WebService().performRequest(url: detailsUrl, completion: { (gameDetails: GameDetailsData) in
-              self.game = gameDetails
-              self.delegate?.setData() //inform listeners that data has came.
-          }) { (error) in
-              
-          }
+            let detailsUrl = "\(baseUrl)\(gameID)"
+            WebService().performRequest(url: detailsUrl, completion: { (gameDetails: GameDetailsModel) in
+                self.game = gameDetails
+                self.delegate?.setData() //inform listeners that data has came.
+            }) { (error) in
+                
+            }
         }
     }
-    
     
     var name: String? {
         return game?.name
@@ -57,6 +56,9 @@ class GameDetailsViewModel {
     }
     var website: String? {
         return game?.website
+    }
+    var metacritic: Int? {
+        return game?.metacritic
     }
 }
 

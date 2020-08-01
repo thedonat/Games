@@ -9,6 +9,7 @@
 import UIKit
 import Kingfisher
 
+
 class GameDetailsViewController: UIViewController {
     
     @IBOutlet weak var gameDetailsTableView: UITableView!
@@ -17,8 +18,8 @@ class GameDetailsViewController: UIViewController {
     
     var gameDetailsViewModel: GameDetailsViewModel = GameDetailsViewModel()
     var gameListViewModel: GamesListViewModel = GamesListViewModel()
-    var favouriteGameIDs: [Int?] = []
-    var favGames: [GamesData?] = []
+    var favouriteGameIDs: [Int] = [Int]()
+    var favGames: [GameDetailsModel] = []
     private let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -42,7 +43,7 @@ class GameDetailsViewController: UIViewController {
     }
     
     func setNavigationBar() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favourite", style: .plain, target: self, action: #selector(addTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favourite", style: .plain, target: self, action: #selector(addFavouriteTapped))
         self.navigationItem.largeTitleDisplayMode = .never
         if let favouritedGameIDs = defaults.value(forKey: "selectedIds") as? [Int] {
             self.favouriteGameIDs = favouritedGameIDs
@@ -54,11 +55,12 @@ class GameDetailsViewController: UIViewController {
         }
     }
     
-    @objc func addTapped() {
+    @objc func addFavouriteTapped() {
         if let favouritedGameId = gameDetailsViewModel.getGameID {
             if !favouriteGameIDs.contains(favouritedGameId) {
                 favouriteGameIDs.append(favouritedGameId)
                 defaults.set(favouriteGameIDs, forKey: "selectedIds")
+                print(favouriteGameIDs)
                 navigationItem.rightBarButtonItem?.title = "Favourited"
             } else {
                 favouriteGameIDs = favouriteGameIDs.filter { $0 != favouritedGameId }
@@ -66,6 +68,7 @@ class GameDetailsViewController: UIViewController {
                 navigationItem.rightBarButtonItem?.title = "Favourite"
             }
         }
+        
     }
 }
 
@@ -117,3 +120,5 @@ extension GameDetailsViewController: GameDetailsViewModelProtocol {
         }
     }
 }
+
+
