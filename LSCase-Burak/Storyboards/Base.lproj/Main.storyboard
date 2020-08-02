@@ -83,22 +83,38 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="0S1-4j-GIL"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Csh-fO-kZs">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No game has been searched." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NnV-bf-Vqr">
+                                <rect key="frame" x="10" y="246" width="394" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="NnV-bf-Vqr" firstAttribute="top" secondItem="E6p-bh-Oli" secondAttribute="bottom" constant="44" id="0o9-j3-yv0"/>
+                            <constraint firstItem="NnV-bf-Vqr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="10" id="3kY-T6-z1g"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="E6p-bh-Oli" secondAttribute="trailing" constant="16" id="AAv-DK-z1v"/>
                             <constraint firstItem="E6p-bh-Oli" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Iji-xN-s90"/>
+                            <constraint firstItem="Csh-fO-kZs" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Q1j-Mj-ztG"/>
                             <constraint firstItem="E6p-bh-Oli" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="6" id="TYR-C6-VAz"/>
                             <constraint firstItem="cWN-j2-4gs" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="U0s-pG-kan"/>
                             <constraint firstItem="cWN-j2-4gs" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="b7b-MH-0WW"/>
                             <constraint firstItem="cWN-j2-4gs" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="oGq-8u-o0q"/>
                             <constraint firstItem="cWN-j2-4gs" firstAttribute="top" secondItem="E6p-bh-Oli" secondAttribute="bottom" id="psC-bT-asd"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="NnV-bf-Vqr" secondAttribute="trailing" constant="10" id="rhy-5W-8Pj"/>
+                            <constraint firstItem="Csh-fO-kZs" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="w2L-MN-Wha"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" title="Games" id="OaG-A7-4wJ"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="Csh-fO-kZs" id="83U-lR-aVb"/>
                         <outlet property="gamesTableView" destination="cWN-j2-4gs" id="3hV-Lb-020"/>
+                        <outlet property="noDataLabel" destination="NnV-bf-Vqr" id="QsU-C1-iCS"/>
                         <outlet property="searchBar" destination="E6p-bh-Oli" id="6t0-Rg-kNx"/>
                     </connections>
                 </viewController>
@@ -117,6 +133,9 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JGJ-0e-8lS">
                                 <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="CFx-4Q-JUg">
+                                        <rect key="frame" x="197" y="399" width="20" height="20"/>
+                                    </activityIndicatorView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1WH-C5-41t">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="818"/>
                                         <subviews>
@@ -198,6 +217,8 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="1WH-C5-41t" firstAttribute="width" secondItem="Xif-ng-p8W" secondAttribute="width" id="4P8-FU-XHh"/>
+                                    <constraint firstItem="CFx-4Q-JUg" firstAttribute="centerY" secondItem="JGJ-0e-8lS" secondAttribute="centerY" id="K5m-gE-LWJ"/>
+                                    <constraint firstItem="CFx-4Q-JUg" firstAttribute="centerX" secondItem="JGJ-0e-8lS" secondAttribute="centerX" id="SCo-9b-G1c"/>
                                     <constraint firstItem="1WH-C5-41t" firstAttribute="trailing" secondItem="ONG-vM-R05" secondAttribute="trailing" id="c5r-f7-abL"/>
                                     <constraint firstItem="1WH-C5-41t" firstAttribute="leading" secondItem="ONG-vM-R05" secondAttribute="leading" id="emr-57-Wkw"/>
                                     <constraint firstItem="1WH-C5-41t" firstAttribute="bottom" secondItem="ONG-vM-R05" secondAttribute="bottom" id="kVr-Ip-5XZ"/>
@@ -226,6 +247,7 @@
                         <viewLayoutGuide key="safeArea" id="gYm-vn-vtC"/>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="CFx-4Q-JUg" id="dhH-12-KJq"/>
                         <outlet property="gameDetailsTableView" destination="ASL-J6-t2T" id="r6C-r5-B3D"/>
                         <outlet property="gameNameLabel" destination="AiH-zH-Wsh" id="rJZ-jI-yjE"/>
                         <outlet property="gameTopImageView" destination="9xv-GW-joE" id="6g3-22-sf3"/>
@@ -262,7 +284,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="27U-Ay-K5D">
+                            <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="27U-Ay-K5D">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
@@ -326,19 +348,35 @@
                                     <outlet property="delegate" destination="QWX-BC-iPr" id="rY4-Dx-nLQ"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There is no favourites found." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ozQ-iH-MRc">
+                                <rect key="frame" x="10" y="124" width="394" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Jna-kS-6mF">
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="Jna-kS-6mF" firstAttribute="centerX" secondItem="qUs-7w-QWk" secondAttribute="centerX" id="5fW-eh-syj"/>
+                            <constraint firstItem="Jna-kS-6mF" firstAttribute="centerY" secondItem="qUs-7w-QWk" secondAttribute="centerY" id="A0O-xe-uzj"/>
+                            <constraint firstItem="ozQ-iH-MRc" firstAttribute="top" secondItem="5vE-fg-4Nz" secondAttribute="top" constant="36" id="EDa-Aa-TaP"/>
                             <constraint firstItem="27U-Ay-K5D" firstAttribute="bottom" secondItem="5vE-fg-4Nz" secondAttribute="bottom" id="EQV-u2-VgG"/>
                             <constraint firstItem="27U-Ay-K5D" firstAttribute="trailing" secondItem="5vE-fg-4Nz" secondAttribute="trailing" id="K36-3h-aWu"/>
+                            <constraint firstItem="ozQ-iH-MRc" firstAttribute="leading" secondItem="5vE-fg-4Nz" secondAttribute="leading" constant="10" id="RB4-vF-4gO"/>
                             <constraint firstItem="27U-Ay-K5D" firstAttribute="leading" secondItem="5vE-fg-4Nz" secondAttribute="leading" id="dgn-Ka-8W8"/>
+                            <constraint firstItem="5vE-fg-4Nz" firstAttribute="trailing" secondItem="ozQ-iH-MRc" secondAttribute="trailing" constant="10" id="pm6-lU-xru"/>
                             <constraint firstItem="27U-Ay-K5D" firstAttribute="top" secondItem="5vE-fg-4Nz" secondAttribute="top" id="sRJ-Y7-8dU"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5vE-fg-4Nz"/>
                     </view>
                     <navigationItem key="navigationItem" title="Favourites" largeTitleDisplayMode="always" id="IpP-fa-Ufh"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="Jna-kS-6mF" id="eeW-dO-chC"/>
                         <outlet property="favouritesTableView" destination="27U-Ay-K5D" id="0gp-fK-HP9"/>
+                        <outlet property="noFavouritesLabel" destination="ozQ-iH-MRc" id="GCN-ga-fBK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Y10-qA-HFM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

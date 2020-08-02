@@ -11,19 +11,49 @@ import UIKit
 class FavouritesViewController: UIViewController {
     
     @IBOutlet weak var favouritesTableView: UITableView!
+    @IBOutlet weak var noFavouritesLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     private var favouritesListViewModel: FavouritesListViewModel = FavouritesListViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        prepareUI()
+        getData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         getData()
     }
     
     private func getData() {
         favouritesListViewModel.delegate = self
         favouritesListViewModel.getFavouritedGames()
+    }
+    
+    func prepareUI() {
+        self.favouritesTableView.tableFooterView = UIView() //Deleting separators between empty rows
+        activityIndicator.style = .large
+        activityIndicator.color = .red
+        activityIndicator.startAnimating()
+        activityIndicator.isHidden = false
+        favouritesTableView.isHidden = true
+        noFavouritesLabel.isHidden = true
+    }
+    
+    private func configureUI() {
+        if favouritesListViewModel.searchResult.count == 0 {
+            self.activityIndicator.isHidden = true
+            self.activityIndicator.stopAnimating()
+            self.noFavouritesLabel.text = "There is no favourites found"
+            self.navigationItem.title = "Favourites"
+        } else {
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+            self.favouritesTableView.isHidden = false
+            self.noFavouritesLabel.isHidden = true
+            self.navigationItem.title = "Favourites (\(self.favouritesListViewModel.numberOfRows))"
+        }
     }
 }
 
@@ -53,8 +83,15 @@ extension FavouritesViewController: UITableViewDelegate {
 }
 
 extension FavouritesViewController: FavouritesViewModelProtocol {
+    func didFailWithError() {
+        DispatchQueue.main.async {
+            self.configureUI()
+        }
+    }
+    
     func getFavouritedData() {
         DispatchQueue.main.async {
+            self.configureUI()
             self.favouritesTableView.reloadData()
         }
     }

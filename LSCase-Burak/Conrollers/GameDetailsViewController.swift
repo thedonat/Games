@@ -15,16 +15,19 @@ class GameDetailsViewController: UIViewController {
     @IBOutlet weak var gameDetailsTableView: UITableView!
     @IBOutlet weak var gameTopImageView: UIImageView!
     @IBOutlet weak var gameNameLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var gameDetailsViewModel: GameDetailsViewModel = GameDetailsViewModel()
-    var gameListViewModel: GamesListViewModel = GamesListViewModel()
     var favouriteGameIDs: [Int] = [Int]()
-    var favGames: [GameDetailsModel] = []
     private let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.gameDetailsTableView.tableFooterView = UIView() //Deleting separators between empty rows
+        gameDetailsTableView.isHidden = true
+        activityIndicator.style = .large
+        activityIndicator.color = .red
+        activityIndicator.startAnimating()
         setNavigationBar()
         retrieveData()
     }
@@ -115,6 +118,9 @@ extension GameDetailsViewController: UITableViewDelegate {
 extension GameDetailsViewController: GameDetailsViewModelProtocol {
     func setData() {
         DispatchQueue.main.async {
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+            self.gameDetailsTableView.isHidden = false
             self.gameDetailsTableView.reloadData()
             self.configureUI()
         }

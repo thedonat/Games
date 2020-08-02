@@ -10,6 +10,7 @@ import Foundation
 
 protocol FavouritesViewModelProtocol: class {
     func getFavouritedData()
+    func didFailWithError()
 }
 
 class FavouritesListViewModel {
@@ -28,13 +29,15 @@ class FavouritesListViewModel {
                 print(id)
                  let url = "https://api.rawg.io/api/games/\(id)"
                  WebService().performRequest(url: url, completion: { (gameDetails: GameDetailsModel) in
+                    print(gameDetails)
                      self.searchResult.append(gameDetails)
                      self.delegate?.getFavouritedData()
                  }) { (error) in
-                     print("ERROR")
                  }
              }
-         }
+        } else {
+            self.delegate?.didFailWithError()
+        }
      }
     func cellForRow(at index: Int) -> FavouritesViewModel? {
         if let game = self.searchResult[index] {

@@ -12,6 +12,8 @@ class GamesViewController: UIViewController{
     
     @IBOutlet weak var gamesTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var noDataLabel: UILabel!
     private var searchText: String = String()
     private var selectedGameIDs : [Int] = []
     private var gameListViewModel: GamesListViewModel = GamesListViewModel()
@@ -19,8 +21,8 @@ class GamesViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureUI()
         searchBar.delegate = self
+        prepareUI()
         getData()
     }
     
@@ -29,7 +31,11 @@ class GamesViewController: UIViewController{
         defaults.set(selectedGameIDs, forKey: "selectedGameIDs")
     }
     
-    private func configureUI() {
+    private func prepareUI() {
+        self.gamesTableView.tableFooterView = UIView() //Deleting separators between empty rows
+        activityIndicator.style = .large
+        activityIndicator.color = .red
+        activityIndicator.startAnimating()
         self.gamesTableView.keyboardDismissMode = .onDrag //Dismissing keyboard when user scroll down or tap on the tableview.
         gamesTableView.isHidden = true
         if let selectedGames = defaults.value(forKey: "selectedGameIDs") as? [Int] {
@@ -40,6 +46,20 @@ class GamesViewController: UIViewController{
     private func getData() {
         gameListViewModel.delegate = self
         gameListViewModel.getData()
+    }
+    
+    private func configureUI() {
+        if gameListViewModel.searchResult.count == 0 {
+            self.gamesTableView.isHidden = true
+            self.noDataLabel.isHidden = false
+            self.noDataLabel.text = "No game has been searched."
+            
+        } else {
+            self.activityIndicator.stopAnimating()
+            self.activityIndicator.isHidden = true
+            self.noDataLabel.isHidden = true
+            self.gamesTableView.isHidden = false
+        }
     }
 }
 
@@ -97,9 +117,17 @@ extension GamesViewController: UITableViewDelegate {
 }
 
 extension GamesViewController: GamesListViewModelProtocol {
-    func setData() {
+    func didFailWithError() {
         DispatchQueue.main.async {
-            self.gamesTableView.isHidden = false
+            self.gamesTableView.isHidden = true
+            self.noDataLabel.isHidden = false
+            self.noDataLabel.text = "No game has been searched."
+        }
+    }
+    
+    func didUpdateData() {
+        DispatchQueue.main.async {
+            self.configureUI()
             self.gamesTableView.reloadData()
         }
     }

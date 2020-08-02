@@ -9,7 +9,8 @@
 import Foundation
 
 protocol GamesListViewModelProtocol: class {
-    func setData()
+    func didUpdateData()
+    func didFailWithError()
 }
 
 class GamesListViewModel {
@@ -28,8 +29,9 @@ class GamesListViewModel {
         print(searchingUrl)
         WebService().performRequest(url: searchingUrl, completion: { (games: GamesModel) in
             self.searchResult.append(contentsOf: games.results)
-            self.delegate?.setData()
+            self.delegate?.didUpdateData()
         }) { (error) in
+            self.delegate?.didFailWithError()
         }
     }
     
