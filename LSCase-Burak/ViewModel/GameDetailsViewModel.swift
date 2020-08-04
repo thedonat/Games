@@ -12,17 +12,30 @@ protocol GameDetailsViewModelProtocol: class {
     func setData()
 }
 
-
 class GameDetailsViewModel {
     var game: GameDetailsModel?
     var getGameID: Int?
     let baseUrl = "https://api.rawg.io/api/games/"
     weak var delegate: GameDetailsViewModelProtocol?
+    private let defaults = UserDefaults.standard
+    var favouriteGameIDs: [Int] = [Int]()
     
     init(game: GameDetailsModel? = nil) {
         self.game = game
     }
     
+    func addFavourite(id: Int) {
+        if var favGames = defaults.value(forKey: "selectedIds") as? [Int] {
+            if !favGames.contains(id) {
+                favGames.append(id)
+                defaults.set(favGames, forKey: "selectedIds")
+            } else {
+                favGames = favGames.filter { $0 != gameID }
+                defaults.set(favGames, forKey: "selectedIds")
+            }
+        }
+    }
+
     func getData() {
         if let gameID = getGameID {
             let detailsUrl = "\(baseUrl)\(gameID)"

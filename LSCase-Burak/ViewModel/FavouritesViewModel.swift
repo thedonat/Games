@@ -14,6 +14,7 @@ protocol FavouritesViewModelProtocol: class {
 }
 
 class FavouritesListViewModel {
+     private var favouriteGameIDs: [Int] = [Int]()
      private let defaults = UserDefaults.standard
      var searchResult: [GameDetailsModel?] = []
      weak var delegate: FavouritesViewModelProtocol?
@@ -24,8 +25,7 @@ class FavouritesListViewModel {
      func getFavouritedGames() {
         self.searchResult = []
         if let favouriteGameIDs = defaults.value(forKey: "selectedIds") as? [Int] {
-            let sorted = favouriteGameIDs.sorted()
-             for id in sorted {
+             for id in favouriteGameIDs {
                 print(id)
                  let url = "https://api.rawg.io/api/games/\(id)"
                  WebService().performRequest(url: url, completion: { (gameDetails: GameDetailsModel) in
@@ -35,15 +35,24 @@ class FavouritesListViewModel {
                  }) { (error) in
                  }
              }
-        } else {
-            self.delegate?.didFailWithError()
+            self.delegate?.getFavouritedData()
         }
      }
+    
     func cellForRow(at index: Int) -> FavouritesViewModel? {
         if let game = self.searchResult[index] {
             return FavouritesViewModel(game: game)
         }
         return nil
+    }
+    
+    func deleteItem(at index: Int) {
+        let id = self.searchResult[index]?.id
+        if var favouritedGameIDs = defaults.value(forKey: "selectedIds") as? [Int] {
+            favouritedGameIDs = favouritedGameIDs.filter { $0 != id }
+            searchResult.remove(at: index)
+            defaults.set(favouritedGameIDs, forKey: "selectedIds")
+        }
     }
     
 }
@@ -68,7 +77,6 @@ class FavouritesViewModel {
     
     var genreData: String {
         var genresString: String = ""
-        
         if let genres = game.genres {
             for (index, genre) in genres.enumerated() {
                 genresString += genre.name

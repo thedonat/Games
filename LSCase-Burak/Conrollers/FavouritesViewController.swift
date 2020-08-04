@@ -14,11 +14,10 @@ class FavouritesViewController: UIViewController {
     @IBOutlet weak var noFavouritesLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     private var favouritesListViewModel: FavouritesListViewModel = FavouritesListViewModel()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
-        getData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,6 +44,8 @@ class FavouritesViewController: UIViewController {
         if favouritesListViewModel.searchResult.count == 0 {
             self.activityIndicator.isHidden = true
             self.activityIndicator.stopAnimating()
+            self.noFavouritesLabel.isHidden = false
+            self.favouritesTableView.isHidden = true
             self.noFavouritesLabel.text = "There is no favourites found"
             self.navigationItem.title = "Favourites"
         } else {
@@ -65,7 +66,7 @@ extension FavouritesViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = favouritesTableView.dequeueReusableCell(withIdentifier: "FavouritesTableViewCell", for: indexPath) as! GamesTableViewCell
         let vm = favouritesListViewModel.cellForRow(at: indexPath.row)
-        cell.setView(name: vm?.name, meta: vm?.metacritic, genre: vm?.genreData, imageUrl: vm?.background_image)
+        cell.setView(name: vm?.name, matacritic: vm?.metacritic, genre: vm?.genreData, imageUrl: vm?.background_image)
         return cell
     }
 }
@@ -76,8 +77,9 @@ extension FavouritesViewController: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+            favouritesListViewModel.deleteItem(at: indexPath.row)
             favouritesTableView.deleteRows(at: [indexPath], with: .fade)
-
+            configureUI()
         }
     }
 }

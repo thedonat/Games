@@ -36,7 +36,7 @@ class GamesViewController: UIViewController{
         activityIndicator.style = .large
         activityIndicator.color = .red
         activityIndicator.startAnimating()
-        self.gamesTableView.keyboardDismissMode = .onDrag //Dismissing keyboard when user scroll down or tap on the tableview.
+        gamesTableView.keyboardDismissMode = .onDrag //Dismissing keyboard when user scroll down or tap on the tableview.
         gamesTableView.isHidden = true
         if let selectedGames = defaults.value(forKey: "selectedGameIDs") as? [Int] {
             selectedGameIDs = selectedGames
@@ -72,7 +72,7 @@ extension GamesViewController: UITableViewDataSource {
         let cell = gamesTableView.dequeueReusableCell(withIdentifier: "GamesTableViewCell", for: indexPath) as! GamesTableViewCell
         let vm = self.gameListViewModel.cellForRow(at: indexPath.row)
         cell.setView(name: vm?.name,
-                     meta: vm?.metacritic,
+                     matacritic: vm?.metacritic,
                      genre: vm?.genreData,
                      imageUrl: vm?.background_image)
         if let selectedGameID = gameListViewModel.searchResult[indexPath.row]?.id {
@@ -116,15 +116,7 @@ extension GamesViewController: UITableViewDelegate {
     }
 }
 
-extension GamesViewController: GamesListViewModelProtocol {
-    func didFailWithError() {
-        DispatchQueue.main.async {
-            self.gamesTableView.isHidden = true
-            self.noDataLabel.isHidden = false
-            self.noDataLabel.text = "No game has been searched."
-        }
-    }
-    
+extension GamesViewController: GamesListViewModelProtocol {    
     func didUpdateData() {
         DispatchQueue.main.async {
             self.configureUI()

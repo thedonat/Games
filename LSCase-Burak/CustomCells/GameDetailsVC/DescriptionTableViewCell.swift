@@ -21,4 +21,7 @@ class DescriptionTableViewCell: UITableViewCell {
         descriptionTitleLabel.text = descriptionTitle
         descriptionLabel.text = description
     }
+    @IBAction func readMoreTapped(_ sender: UIButton) {
+        descriptionLabel.numberOfLines = 0
+    }
 }

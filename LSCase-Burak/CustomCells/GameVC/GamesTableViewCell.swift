@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 class GamesTableViewCell: UITableViewCell {
-    @IBOutlet weak var gameBackgroundImageView: UIImageView!
+    @IBOutlet weak var gameImageView: UIImageView!
     @IBOutlet weak var gameNameLabel: UILabel!
     @IBOutlet weak var gameMetacriticLabel: UILabel!
     @IBOutlet weak var gameGenreLabel: UILabel!
@@ -18,18 +18,16 @@ class GamesTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
-    func setView(name: String?, meta: Int?, genre: String?, imageUrl: String? ) {
+    func setView(name: String?, matacritic: Int?, genre: String?, imageUrl: String? ) {
         gameNameLabel.text = name
         gameGenreLabel.text = genre
-        
         if let imageUrl = imageUrl {
             let url = URL(string: imageUrl)
-            gameBackgroundImageView.kf.setImage(with: url)
+            gameImageView.kf.setImage(with: url)
         }
-        if let meta = meta {
+        if let meta = matacritic {
             let metacritic = "metacritic: \(meta)"
             setAttributedString(text: metacritic, range: "\(meta)")
             

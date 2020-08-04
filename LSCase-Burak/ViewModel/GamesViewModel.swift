@@ -10,7 +10,6 @@ import Foundation
 
 protocol GamesListViewModelProtocol: class {
     func didUpdateData()
-    func didFailWithError()
 }
 
 class GamesListViewModel {
@@ -31,7 +30,6 @@ class GamesListViewModel {
             self.searchResult.append(contentsOf: games.results)
             self.delegate?.didUpdateData()
         }) { (error) in
-            self.delegate?.didFailWithError()
         }
     }
     

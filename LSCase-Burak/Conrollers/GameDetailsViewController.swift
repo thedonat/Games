@@ -16,9 +16,9 @@ class GameDetailsViewController: UIViewController {
     @IBOutlet weak var gameTopImageView: UIImageView!
     @IBOutlet weak var gameNameLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var gradientView: UIView!
     
     var gameDetailsViewModel: GameDetailsViewModel = GameDetailsViewModel()
-    var favouriteGameIDs: [Int] = [Int]()
     private let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
@@ -32,12 +32,18 @@ class GameDetailsViewController: UIViewController {
         retrieveData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        setNavigationBar()
+    }
+    
     private func retrieveData() {
         gameDetailsViewModel.delegate = self
         gameDetailsViewModel.getData()
     }
     
     func configureUI() {
+        gradientView.fadeView(style: .top, percentage: 1.2)
+        gradientView.isHidden = false
         gameNameLabel.text = gameDetailsViewModel.name
         if let imageUrl = gameDetailsViewModel.background_image {
             let url = URL(string: imageUrl)
@@ -49,9 +55,8 @@ class GameDetailsViewController: UIViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favourite", style: .plain, target: self, action: #selector(addFavouriteTapped))
         self.navigationItem.largeTitleDisplayMode = .never
         if let favouritedGameIDs = defaults.value(forKey: "selectedIds") as? [Int] {
-            self.favouriteGameIDs = favouritedGameIDs
             if let favouritedGameID = gameDetailsViewModel.getGameID {
-                if favouriteGameIDs.contains(favouritedGameID) {
+                if favouritedGameIDs.contains(favouritedGameID) {
                     navigationItem.rightBarButtonItem?.title = "Favourited"
                 }
             }
@@ -60,18 +65,13 @@ class GameDetailsViewController: UIViewController {
     
     @objc func addFavouriteTapped() {
         if let favouritedGameId = gameDetailsViewModel.getGameID {
-            if !favouriteGameIDs.contains(favouritedGameId) {
-                favouriteGameIDs.append(favouritedGameId)
-                defaults.set(favouriteGameIDs, forKey: "selectedIds")
-                print(favouriteGameIDs)
-                navigationItem.rightBarButtonItem?.title = "Favourited"
-            } else {
-                favouriteGameIDs = favouriteGameIDs.filter { $0 != favouritedGameId }
-                defaults.set(favouriteGameIDs, forKey: "selectedIds")
+            gameDetailsViewModel.addFavourite(id: favouritedGameId)
+            if navigationItem.rightBarButtonItem?.title == "Favourited"{
                 navigationItem.rightBarButtonItem?.title = "Favourite"
+            } else {
+                navigationItem.rightBarButtonItem?.title = "Favourited"
             }
         }
-        
     }
 }
 
