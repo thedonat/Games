@@ -31,7 +31,8 @@ class FavouritesListViewModel {
                      self.delegate?.didGetFavouritedData()
                  }) { (error) in
                  }
-             }
+            }
+        } else {
             self.delegate?.didGetFavouritedData()
         }
      }
