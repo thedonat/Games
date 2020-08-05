@@ -9,12 +9,12 @@
 import UIKit
 
 class FavouritesViewController: UIViewController {
-    
+    //MARK: -Properties
     @IBOutlet weak var favouritesTableView: UITableView!
     @IBOutlet weak var noFavouritesLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     private var favouritesListViewModel: FavouritesListViewModel = FavouritesListViewModel()
-    
+    //MARK: -Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         prepareUI()
@@ -24,7 +24,7 @@ class FavouritesViewController: UIViewController {
         super.viewWillAppear(animated)
         getData()
     }
-    
+    //MARK: -Helpers
     private func getData() {
         favouritesListViewModel.delegate = self
         favouritesListViewModel.getFavouritedGames()
@@ -57,7 +57,7 @@ class FavouritesViewController: UIViewController {
         }
     }
 }
-
+//MARK: -UITableViewDataSource
 extension FavouritesViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return favouritesListViewModel.numberOfRows
@@ -70,7 +70,7 @@ extension FavouritesViewController: UITableViewDataSource{
         return cell
     }
 }
-
+//MARK: -UITableViewDelegate
 extension FavouritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 136
@@ -79,7 +79,7 @@ extension FavouritesViewController: UITableViewDelegate {
         if editingStyle == .delete {
             let alert = UIAlertController(title: "Ops!", message: "Do you want to remove it from favourited games?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "YES", style: .default, handler: { (action: UIAlertAction) in
-                self.favouritesListViewModel.deleteItem(at: indexPath.row)
+                self.favouritesListViewModel.deleteFavouritedItem(from: indexPath.row)
                 self.favouritesTableView.deleteRows(at: [indexPath], with: .fade)
                 self.configureUI()
             }))
@@ -90,7 +90,7 @@ extension FavouritesViewController: UITableViewDelegate {
         }
     }
 }
-
+//MARK: -FavouritesViewModelProtocol
 extension FavouritesViewController: FavouritesViewModelProtocol {
     func didFailWithError() {
         DispatchQueue.main.async {

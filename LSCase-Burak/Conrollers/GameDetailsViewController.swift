@@ -11,7 +11,7 @@ import Kingfisher
 
 
 class GameDetailsViewController: UIViewController {
-    
+    //MARK: -Properties
     @IBOutlet weak var gameDetailsTableView: UITableView!
     @IBOutlet weak var gameTopImageView: UIImageView!
     @IBOutlet weak var gameNameLabel: UILabel!
@@ -19,7 +19,7 @@ class GameDetailsViewController: UIViewController {
     @IBOutlet weak var gradientView: UIView!
     var gameDetailsViewModel: GameDetailsViewModel = GameDetailsViewModel()
     private let defaults = UserDefaults.standard
-    
+    //MARK: -Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         self.gameDetailsTableView.tableFooterView = UIView() //Deleting separators between empty rows
@@ -31,7 +31,7 @@ class GameDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         setNavigationBar()
     }
-    
+    //MARK: -Helpers
     func prepareUI() {
         gameDetailsTableView.isHidden = true
         activityIndicator.style = .large
@@ -68,7 +68,7 @@ class GameDetailsViewController: UIViewController {
     func setNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favourite", style: .plain, target: self, action: #selector(addFavouriteTapped))
         self.navigationItem.largeTitleDisplayMode = .never
-        if let favouritedGameIDs = defaults.value(forKey: "selectedIds") as? [Int] {
+        if let favouritedGameIDs = defaults.value(forKey: FAVOURITES_KEY) as? [Int] {
             if let favouritedGameID = gameDetailsViewModel.getGameID {
                 if favouritedGameIDs.contains(favouritedGameID) {
                     navigationItem.rightBarButtonItem?.title = "Favourited"
@@ -88,7 +88,7 @@ class GameDetailsViewController: UIViewController {
         }
     }
 }
-
+//MARK: -UITableViewDataSource
 extension GameDetailsViewController: UITableViewDataSource {    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
@@ -111,7 +111,7 @@ extension GameDetailsViewController: UITableViewDataSource {
         }
     }
 }
-
+//MARK: -UITableViewDelegate
 extension GameDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
@@ -139,8 +139,7 @@ extension GameDetailsViewController: UITableViewDelegate {
         }
     }
 }
-
-
+//MARK: -GameDetailsViewModelProtocol
 extension GameDetailsViewController: GameDetailsViewModelProtocol {
     func didGetData() {
         DispatchQueue.main.async {

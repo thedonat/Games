@@ -13,31 +13,30 @@ protocol GameDetailsViewModelProtocol: class {
 }
 
 class GameDetailsViewModel {
-    let baseUrl = "https://api.rawg.io/api/games/"
     private var game: GameDetailsModel?
-    var getGameID: Int?
-    weak var delegate: GameDetailsViewModelProtocol?
     private let defaults = UserDefaults.standard
+    weak var delegate: GameDetailsViewModelProtocol?
+    var getGameID: Int?
     
     init(game: GameDetailsModel? = nil) {
         self.game = game
     }
     
     func addFavourite(id: Int) {
-        if var favouritedGameIDs = defaults.value(forKey: "selectedIds") as? [Int] {
+        if var favouritedGameIDs = defaults.value(forKey: FAVOURITES_KEY) as? [Int] {
             if !favouritedGameIDs.contains(id) {
                 favouritedGameIDs.append(id)
-                defaults.set(favouritedGameIDs, forKey: "selectedIds")
+                defaults.set(favouritedGameIDs, forKey: FAVOURITES_KEY)
             } else {
                 favouritedGameIDs = favouritedGameIDs.filter { $0 != gameID }
-                defaults.set(favouritedGameIDs, forKey: "selectedIds")
+                defaults.set(favouritedGameIDs, forKey: FAVOURITES_KEY)
             }
         }
     }
 
     func getData() {
         if let gameID = getGameID {
-            let detailsUrl = "\(baseUrl)\(gameID)"
+            let detailsUrl = "\(DETAILS_BASE_URL)\(gameID)"
             WebService().performRequest(url: detailsUrl, completion: { (gameDetails: GameDetailsModel) in
                 self.game = gameDetails
                 self.delegate?.didGetData() //inform listeners that data has came.

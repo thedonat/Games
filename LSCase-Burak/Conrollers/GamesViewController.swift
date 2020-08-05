@@ -9,7 +9,7 @@
 import UIKit
 
 class GamesViewController: UIViewController{
-    
+    //MARK: -Properties
     @IBOutlet weak var gamesTableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -17,7 +17,7 @@ class GamesViewController: UIViewController{
     private var selectedGameIDs : [Int] = []
     private var gameListViewModel: GamesListViewModel = GamesListViewModel()
     private let defaults = UserDefaults.standard
-    
+    //MARK: -Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         searchBar.delegate = self
@@ -27,9 +27,9 @@ class GamesViewController: UIViewController{
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        defaults.set(selectedGameIDs, forKey: "selectedGameIDs")
+        defaults.set(selectedGameIDs, forKey: SELECTEDS_KEY)
     }
-    
+    //MARK: -Helpers
     private func prepareUI() {
         self.gamesTableView.tableFooterView = UIView() //Deleting separators between empty rows
         self.gamesTableView.keyboardDismissMode = .onDrag //Dismissing keyboard when user scroll down or tap on the tableview.
@@ -37,7 +37,7 @@ class GamesViewController: UIViewController{
         activityIndicator.color = .red
         activityIndicator.startAnimating()
         gamesTableView.isHidden = true
-        if let selectedGames = defaults.value(forKey: "selectedGameIDs") as? [Int] {
+        if let selectedGames = defaults.value(forKey: SELECTEDS_KEY) as? [Int] {
             selectedGameIDs = selectedGames
         }
     }
@@ -61,7 +61,7 @@ class GamesViewController: UIViewController{
         }
     }
 }
-
+//MARK: -UITableViewDataSource
 extension GamesViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return gameListViewModel.numberOfRows
@@ -84,7 +84,7 @@ extension GamesViewController: UITableViewDataSource {
         return cell
     }
 }
-
+//MARK: -UITableViewDelegate
 extension GamesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 136
@@ -114,8 +114,8 @@ extension GamesViewController: UITableViewDelegate {
         }
     }
 }
-
-extension GamesViewController: GamesListViewModelProtocol {    
+//MARK: -GamesListViewModelProtocol
+extension GamesViewController: GamesListViewModelProtocol {
     func didUpdateData() {
         DispatchQueue.main.async {
             self.configureUI()
@@ -123,7 +123,7 @@ extension GamesViewController: GamesListViewModelProtocol {
         }
     }
 }
-
+//MARK: -UISearchBarDelegate
 extension GamesViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let searchText = searchBar.text  else {return}
@@ -131,9 +131,7 @@ extension GamesViewController: UISearchBarDelegate {
             gameListViewModel.getSearchedText = ""
             gameListViewModel.currentPage = 1
             gameListViewModel.searchResult = []
-            gameListViewModel.url = "https://api.rawg.io/api/games?page_size=10"
             self.getData()
-            print("There is no text")
         } else if searchText.count > 3{
             gameListViewModel.currentPage = 1
             gameListViewModel.searchResult = []

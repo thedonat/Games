@@ -23,9 +23,9 @@ class FavouritesListViewModel {
 
      func getFavouritedGames() {
         self.searchResult = []
-        if let favouritedGameIDs = defaults.value(forKey: "selectedIds") as? [Int] {
+        if let favouritedGameIDs = defaults.value(forKey: FAVOURITES_KEY) as? [Int] {
              for id in favouritedGameIDs {
-                 let url = "https://api.rawg.io/api/games/\(id)"
+                 let url = "\(DETAILS_BASE_URL)\(id)"
                  WebService().performRequest(url: url, completion: { (gameDetails: GameDetailsModel) in
                      self.searchResult.append(gameDetails)
                      self.delegate?.didGetFavouritedData()
@@ -43,12 +43,12 @@ class FavouritesListViewModel {
         return nil
     }
     
-    func deleteItem(at index: Int) {
+    func deleteFavouritedItem(from index: Int) {
         let gameID = self.searchResult[index]?.id
-        if var favouritedGameIDs = defaults.value(forKey: "selectedIds") as? [Int] {
+        if var favouritedGameIDs = defaults.value(forKey: FAVOURITES_KEY) as? [Int] {
             favouritedGameIDs = favouritedGameIDs.filter { $0 != gameID }
             searchResult.remove(at: index)
-            defaults.set(favouritedGameIDs, forKey: "selectedIds")
+            defaults.set(favouritedGameIDs, forKey: FAVOURITES_KEY)
         }
     }
 }

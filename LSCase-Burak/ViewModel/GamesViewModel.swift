@@ -13,7 +13,6 @@ protocol GamesListViewModelProtocol: class {
 }
 
 class GamesListViewModel {
-    var url = "https://api.rawg.io/api/games?page_size=10"
     weak var delegate: GamesListViewModelProtocol?
     var searchResult: [SearchResult?] = []
     var currentPage = 1
@@ -24,8 +23,7 @@ class GamesListViewModel {
     }
     
     func getData() {
-        let searchingUrl = "\(url)&page=\(currentPage)&search=\(getSearchedText)"
-        print(searchingUrl)
+        let searchingUrl = "\(SEARCH_BASE_URL)&page=\(currentPage)&search=\(getSearchedText)"
         WebService().performRequest(url: searchingUrl, completion: { (games: GamesModel) in
             self.searchResult.append(contentsOf: games.results)
             self.delegate?.didUpdateData()

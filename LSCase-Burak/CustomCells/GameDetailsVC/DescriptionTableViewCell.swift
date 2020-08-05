@@ -14,7 +14,6 @@ class DescriptionTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     func setView(descriptionTitle: String, description: String?) {
