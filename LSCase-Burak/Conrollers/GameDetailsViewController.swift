@@ -17,17 +17,13 @@ class GameDetailsViewController: UIViewController {
     @IBOutlet weak var gameNameLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var gradientView: UIView!
-    
     var gameDetailsViewModel: GameDetailsViewModel = GameDetailsViewModel()
     private let defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.gameDetailsTableView.tableFooterView = UIView() //Deleting separators between empty rows
-        gameDetailsTableView.isHidden = true
-        activityIndicator.style = .large
-        activityIndicator.color = .red
-        activityIndicator.startAnimating()
+        prepareUI()
         setNavigationBar()
         retrieveData()
     }
@@ -36,19 +32,37 @@ class GameDetailsViewController: UIViewController {
         setNavigationBar()
     }
     
+    func prepareUI() {
+        gameDetailsTableView.isHidden = true
+        activityIndicator.style = .large
+        activityIndicator.color = .red
+        activityIndicator.startAnimating()
+    }
+    
     private func retrieveData() {
         gameDetailsViewModel.delegate = self
         gameDetailsViewModel.getData()
     }
     
     func configureUI() {
-        gradientView.fadeView(style: .top, percentage: 1.2)
+        configureGradientView()
         gradientView.isHidden = false
         gameNameLabel.text = gameDetailsViewModel.name
         if let imageUrl = gameDetailsViewModel.background_image {
             let url = URL(string: imageUrl)
             gameTopImageView.kf.setImage(with: url)
         }
+    }
+    
+    func configureGradientView() {
+        let gradient = CAGradientLayer()
+        gradient.frame = gradientView.bounds
+        gradient.colors = [UIColor.white.cgColor, UIColor.clear.cgColor]
+        
+        let startLocation = 1.2
+        gradient.startPoint = CGPoint(x: 0.5, y: startLocation)
+        gradient.endPoint = CGPoint(x: 0.5, y: 0.0)
+        gradientView.layer.mask = gradient
     }
     
     func setNavigationBar() {
@@ -101,22 +115,34 @@ extension GameDetailsViewController: UITableViewDataSource {
 extension GameDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
-            if let websiteUrl = self.gameDetailsViewModel.website,
-                let url = URL(string: websiteUrl) {
-                UIApplication.shared.open(url)
+            if self.gameDetailsViewModel.website == ""{
+                self.displayAlert()
+            }
+            else {
+                if let websiteUrl = self.gameDetailsViewModel.website,
+                    let url = URL(string: websiteUrl) {
+                    UIApplication.shared.open(url)
+                }
             }
         }
+        
         if indexPath.row == 1 {
-            if let redditUrl = self.gameDetailsViewModel.redditUrl,
-                let url = URL(string: redditUrl) {
-                UIApplication.shared.open(url)
+            if self.gameDetailsViewModel.redditUrl == ""{
+                self.displayAlert()
+            }
+            else {
+                if let redditUrl = self.gameDetailsViewModel.redditUrl,
+                    let url = URL(string: redditUrl) {
+                    UIApplication.shared.open(url)
+                }
             }
         }
     }
 }
 
+
 extension GameDetailsViewController: GameDetailsViewModelProtocol {
-    func setData() {
+    func didGetData() {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
             self.activityIndicator.isHidden = true

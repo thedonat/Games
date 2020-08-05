@@ -14,7 +14,6 @@ struct WebService {
             URLSession.shared.dataTask(with: url) { (data, response, error) in
                 if error != nil {
                     errorCompletion(error)
-                    print("DEBUG: ERROR", error?.localizedDescription as Any)
                 } else {
                     if let safeData = data {
                         if let decodedData = try? JSONDecoder().decode(T.self, from: safeData) {

@@ -9,33 +9,30 @@
 import Foundation
 
 protocol FavouritesViewModelProtocol: class {
-    func getFavouritedData()
+    func didGetFavouritedData()
     func didFailWithError()
 }
 
 class FavouritesListViewModel {
-     private var favouriteGameIDs: [Int] = [Int]()
+     weak var delegate: FavouritesViewModelProtocol?
      private let defaults = UserDefaults.standard
      var searchResult: [GameDetailsModel?] = []
-     weak var delegate: FavouritesViewModelProtocol?
      var numberOfRows: Int {
          return searchResult.count
      }
 
      func getFavouritedGames() {
         self.searchResult = []
-        if let favouriteGameIDs = defaults.value(forKey: "selectedIds") as? [Int] {
-             for id in favouriteGameIDs {
-                print(id)
+        if let favouritedGameIDs = defaults.value(forKey: "selectedIds") as? [Int] {
+             for id in favouritedGameIDs {
                  let url = "https://api.rawg.io/api/games/\(id)"
                  WebService().performRequest(url: url, completion: { (gameDetails: GameDetailsModel) in
-                    print(gameDetails)
                      self.searchResult.append(gameDetails)
-                     self.delegate?.getFavouritedData()
+                     self.delegate?.didGetFavouritedData()
                  }) { (error) in
                  }
              }
-            self.delegate?.getFavouritedData()
+            self.delegate?.didGetFavouritedData()
         }
      }
     
@@ -47,18 +44,18 @@ class FavouritesListViewModel {
     }
     
     func deleteItem(at index: Int) {
-        let id = self.searchResult[index]?.id
+        let gameID = self.searchResult[index]?.id
         if var favouritedGameIDs = defaults.value(forKey: "selectedIds") as? [Int] {
-            favouritedGameIDs = favouritedGameIDs.filter { $0 != id }
+            favouritedGameIDs = favouritedGameIDs.filter { $0 != gameID }
             searchResult.remove(at: index)
             defaults.set(favouritedGameIDs, forKey: "selectedIds")
         }
     }
-    
 }
 
 class FavouritesViewModel {
     private let game: GameDetailsModel
+    
     init(game: GameDetailsModel) {
         self.game = game
     }

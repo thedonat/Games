@@ -14,7 +14,6 @@ class GamesViewController: UIViewController{
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var noDataLabel: UILabel!
-    private var searchText: String = String()
     private var selectedGameIDs : [Int] = []
     private var gameListViewModel: GamesListViewModel = GamesListViewModel()
     private let defaults = UserDefaults.standard
@@ -33,10 +32,10 @@ class GamesViewController: UIViewController{
     
     private func prepareUI() {
         self.gamesTableView.tableFooterView = UIView() //Deleting separators between empty rows
+        self.gamesTableView.keyboardDismissMode = .onDrag //Dismissing keyboard when user scroll down or tap on the tableview.
         activityIndicator.style = .large
         activityIndicator.color = .red
         activityIndicator.startAnimating()
-        gamesTableView.keyboardDismissMode = .onDrag //Dismissing keyboard when user scroll down or tap on the tableview.
         gamesTableView.isHidden = true
         if let selectedGames = defaults.value(forKey: "selectedGameIDs") as? [Int] {
             selectedGameIDs = selectedGames
@@ -141,7 +140,6 @@ extension GamesViewController: UISearchBarDelegate {
             let searchedText = searchText.replacingOccurrences(of: " ", with: "+")
             gameListViewModel.getSearchedText = searchedText
             self.getData()
-            print(searchText)
         }
     }
 }

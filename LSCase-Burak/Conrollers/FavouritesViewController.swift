@@ -77,9 +77,16 @@ extension FavouritesViewController: UITableViewDelegate {
     }
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            favouritesListViewModel.deleteItem(at: indexPath.row)
-            favouritesTableView.deleteRows(at: [indexPath], with: .fade)
-            configureUI()
+            let alert = UIAlertController(title: "Ops!", message: "Do you want to remove it from favourited games?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "YES", style: .default, handler: { (action: UIAlertAction) in
+                self.favouritesListViewModel.deleteItem(at: indexPath.row)
+                self.favouritesTableView.deleteRows(at: [indexPath], with: .fade)
+                self.configureUI()
+            }))
+            alert.addAction(UIAlertAction(title: "NO", style: .default, handler: { (action: UIAlertAction) in
+                return
+            }))
+            present(alert, animated: true, completion: nil)
         }
     }
 }
@@ -91,7 +98,7 @@ extension FavouritesViewController: FavouritesViewModelProtocol {
         }
     }
     
-    func getFavouritedData() {
+    func didGetFavouritedData() {
         DispatchQueue.main.async {
             self.configureUI()
             self.favouritesTableView.reloadData()

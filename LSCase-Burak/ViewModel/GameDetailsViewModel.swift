@@ -9,29 +9,28 @@
 import Foundation
 
 protocol GameDetailsViewModelProtocol: class {
-    func setData()
+    func didGetData()
 }
 
 class GameDetailsViewModel {
-    var game: GameDetailsModel?
-    var getGameID: Int?
     let baseUrl = "https://api.rawg.io/api/games/"
+    private var game: GameDetailsModel?
+    var getGameID: Int?
     weak var delegate: GameDetailsViewModelProtocol?
     private let defaults = UserDefaults.standard
-    var favouriteGameIDs: [Int] = [Int]()
     
     init(game: GameDetailsModel? = nil) {
         self.game = game
     }
     
     func addFavourite(id: Int) {
-        if var favGames = defaults.value(forKey: "selectedIds") as? [Int] {
-            if !favGames.contains(id) {
-                favGames.append(id)
-                defaults.set(favGames, forKey: "selectedIds")
+        if var favouritedGameIDs = defaults.value(forKey: "selectedIds") as? [Int] {
+            if !favouritedGameIDs.contains(id) {
+                favouritedGameIDs.append(id)
+                defaults.set(favouritedGameIDs, forKey: "selectedIds")
             } else {
-                favGames = favGames.filter { $0 != gameID }
-                defaults.set(favGames, forKey: "selectedIds")
+                favouritedGameIDs = favouritedGameIDs.filter { $0 != gameID }
+                defaults.set(favouritedGameIDs, forKey: "selectedIds")
             }
         }
     }
@@ -41,7 +40,7 @@ class GameDetailsViewModel {
             let detailsUrl = "\(baseUrl)\(gameID)"
             WebService().performRequest(url: detailsUrl, completion: { (gameDetails: GameDetailsModel) in
                 self.game = gameDetails
-                self.delegate?.setData() //inform listeners that data has came.
+                self.delegate?.didGetData() //inform listeners that data has came.
             }) { (error) in
                 
             }
