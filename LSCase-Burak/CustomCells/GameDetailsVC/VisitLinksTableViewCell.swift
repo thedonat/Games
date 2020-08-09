@@ -8,7 +8,7 @@
 
 import UIKit
 
-class VisitWebsiteTableViewCell: UITableViewCell {
+class VisitLinksTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }

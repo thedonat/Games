@@ -40,6 +40,7 @@ class GamesTableViewCell: UITableViewCell {
         let range = (text as NSString).range(of: range)
         let attributedString = NSMutableAttributedString(string: text)
         attributedString.addAttribute(NSAttributedString.Key.foregroundColor, value: UIColor.red, range: range)
+        attributedString.addAttribute(NSAttributedString.Key.font, value: UIFont.systemFont(ofSize: 18), range: range)
         self.gameMetacriticLabel.attributedText = attributedString
     }
 }

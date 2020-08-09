@@ -24,7 +24,7 @@
 		00AFADB424D1A7E400006DDD /* GameDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADB324D1A7E400006DDD /* GameDetailsViewModel.swift */; };
 		00AFADB624D1ACB300006DDD /* GameDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADB524D1ACB300006DDD /* GameDetailsViewController.swift */; };
 		00AFADBA24D1ADD100006DDD /* DescriptionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADB924D1ADD100006DDD /* DescriptionTableViewCell.swift */; };
-		00AFADBE24D1AE0200006DDD /* VisitWebsiteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADBD24D1AE0200006DDD /* VisitWebsiteTableViewCell.swift */; };
+		00AFADBE24D1AE0200006DDD /* VisitLinksTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADBD24D1AE0200006DDD /* VisitLinksTableViewCell.swift */; };
 		00C5721A24DB458400257EB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C5721924DB458400257EB4 /* Constants.swift */; };
 		1A24BAF79F688866CDB9077F /* libPods-LSCase-Burak.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06039E062158CF269340229A /* libPods-LSCase-Burak.a */; };
 /* End PBXBuildFile section */
@@ -49,7 +49,7 @@
 		00AFADB324D1A7E400006DDD /* GameDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsViewModel.swift; sourceTree = "<group>"; };
 		00AFADB524D1ACB300006DDD /* GameDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsViewController.swift; sourceTree = "<group>"; };
 		00AFADB924D1ADD100006DDD /* DescriptionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionTableViewCell.swift; sourceTree = "<group>"; };
-		00AFADBD24D1AE0200006DDD /* VisitWebsiteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitWebsiteTableViewCell.swift; sourceTree = "<group>"; };
+		00AFADBD24D1AE0200006DDD /* VisitLinksTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisitLinksTableViewCell.swift; sourceTree = "<group>"; };
 		00C5721924DB458400257EB4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		06039E062158CF269340229A /* libPods-LSCase-Burak.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LSCase-Burak.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		40E4F494975301BB076A799E /* Pods-LSCase-Burak.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LSCase-Burak.release.xcconfig"; path = "Target Support Files/Pods-LSCase-Burak/Pods-LSCase-Burak.release.xcconfig"; sourceTree = "<group>"; };
@@ -180,7 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				00AFADB924D1ADD100006DDD /* DescriptionTableViewCell.swift */,
-				00AFADBD24D1AE0200006DDD /* VisitWebsiteTableViewCell.swift */,
+				00AFADBD24D1AE0200006DDD /* VisitLinksTableViewCell.swift */,
 			);
 			path = GameDetailsVC;
 			sourceTree = "<group>";
@@ -309,7 +309,7 @@
 				00C5721A24DB458400257EB4 /* Constants.swift in Sources */,
 				00AFADAF24D1890300006DDD /* GamesTableViewCell.swift in Sources */,
 				00AFADAC24D17DC200006DDD /* GamesViewModel.swift in Sources */,
-				00AFADBE24D1AE0200006DDD /* VisitWebsiteTableViewCell.swift in Sources */,
+				00AFADBE24D1AE0200006DDD /* VisitLinksTableViewCell.swift in Sources */,
 				0041A19C24DA1F0700AF3E62 /* Extensions.swift in Sources */,
 				00AFADB624D1ACB300006DDD /* GameDetailsViewController.swift in Sources */,
 				00136F7E24D152EB0081F199 /* AppDelegate.swift in Sources */,

@@ -101,7 +101,7 @@ extension GameDetailsViewController: UITableViewDataSource {
                          description: vm.description)
             return cell
         } else {
-            let cell = gameDetailsTableView.dequeueReusableCell(withIdentifier: "VisitWebsiteTableViewCell", for: indexPath) as! VisitWebsiteTableViewCell
+            let cell = gameDetailsTableView.dequeueReusableCell(withIdentifier: "VisitWebsiteTableViewCell", for: indexPath) as! VisitLinksTableViewCell
             if indexPath.row == 1 {
                 cell.textLabel?.text = "Visit Reddit"
             } else {
