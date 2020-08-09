@@ -24,6 +24,7 @@ class GamesListViewModel {
     
     func getData() {
         let searchingUrl = "\(SEARCH_BASE_URL)&page=\(currentPage)&search=\(getSearchedText)"
+        print(searchingUrl)
         WebService().performRequest(url: searchingUrl, completion: { (games: GamesModel) in
             self.searchResult.append(contentsOf: games.results)
             self.delegate?.didUpdateData()

@@ -17,26 +17,29 @@ class GameDetailsViewModel {
     private let defaults = UserDefaults.standard
     weak var delegate: GameDetailsViewModelProtocol?
     var getGameID: Int?
+    var favouritedGameIDs: [Int] = []
     
     init(game: GameDetailsModel? = nil) {
         self.game = game
     }
     
     func addFavourite(id: Int) {
-        if var favouritedGameIDs = defaults.value(forKey: FAVOURITES_KEY) as? [Int] {
-            if !favouritedGameIDs.contains(id) {
-                favouritedGameIDs.append(id)
-                defaults.set(favouritedGameIDs, forKey: FAVOURITES_KEY)
-            } else {
-                favouritedGameIDs = favouritedGameIDs.filter { $0 != gameID }
-                defaults.set(favouritedGameIDs, forKey: FAVOURITES_KEY)
-            }
+        if let favouritedGameIDs = defaults.value(forKey: FAVOURITES_KEY) as? [Int] {
+            self.favouritedGameIDs = favouritedGameIDs
+        }
+        if !favouritedGameIDs.contains(id) {
+            favouritedGameIDs.append(id)
+            defaults.set(favouritedGameIDs, forKey: FAVOURITES_KEY)
+        } else {
+            favouritedGameIDs = favouritedGameIDs.filter { $0 != gameID }
+            defaults.set(favouritedGameIDs, forKey: FAVOURITES_KEY)
         }
     }
 
     func getData() {
         if let gameID = getGameID {
             let detailsUrl = "\(DETAILS_BASE_URL)\(gameID)"
+            print(detailsUrl)
             WebService().performRequest(url: detailsUrl, completion: { (gameDetails: GameDetailsModel) in
                 self.game = gameDetails
                 self.delegate?.didGetData() //inform listeners that data has came.
