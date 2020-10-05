@@ -15,9 +15,11 @@
 		00136F9424D15E180081F199 /* GamesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00136F9324D15E180081F199 /* GamesViewController.swift */; };
 		00136F9624D15E3F0081F199 /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00136F9524D15E3F0081F199 /* FavouritesViewController.swift */; };
 		0041A19C24DA1F0700AF3E62 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0041A19B24DA1F0700AF3E62 /* Extensions.swift */; };
+		0042137D252BA2240073C3D2 /* NetworkResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0042137C252BA2240073C3D2 /* NetworkResponse.swift */; };
+		0042137F252BA22F0073C3D2 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0042137E252BA22F0073C3D2 /* NetworkError.swift */; };
 		00A8DBBA24D5FF8C00E7F6D8 /* FavouritesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A8DBB924D5FF8C00E7F6D8 /* FavouritesViewModel.swift */; };
 		00AFADA624D172C500006DDD /* GamesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADA524D172C500006DDD /* GamesModel.swift */; };
-		00AFADA924D177EA00006DDD /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADA824D177EA00006DDD /* WebService.swift */; };
+		00AFADA924D177EA00006DDD /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADA824D177EA00006DDD /* NetworkManager.swift */; };
 		00AFADAC24D17DC200006DDD /* GamesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADAB24D17DC200006DDD /* GamesViewModel.swift */; };
 		00AFADAF24D1890300006DDD /* GamesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADAE24D1890300006DDD /* GamesTableViewCell.swift */; };
 		00AFADB224D1A64000006DDD /* GameDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00AFADB124D1A64000006DDD /* GameDetailsModel.swift */; };
@@ -40,9 +42,11 @@
 		00136F9324D15E180081F199 /* GamesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewController.swift; sourceTree = "<group>"; };
 		00136F9524D15E3F0081F199 /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
 		0041A19B24DA1F0700AF3E62 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		0042137C252BA2240073C3D2 /* NetworkResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResponse.swift; sourceTree = "<group>"; };
+		0042137E252BA22F0073C3D2 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		00A8DBB924D5FF8C00E7F6D8 /* FavouritesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewModel.swift; sourceTree = "<group>"; };
 		00AFADA524D172C500006DDD /* GamesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesModel.swift; sourceTree = "<group>"; };
-		00AFADA824D177EA00006DDD /* WebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		00AFADA824D177EA00006DDD /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		00AFADAB24D17DC200006DDD /* GamesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesViewModel.swift; sourceTree = "<group>"; };
 		00AFADAE24D1890300006DDD /* GamesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GamesTableViewCell.swift; sourceTree = "<group>"; };
 		00AFADB124D1A64000006DDD /* GameDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsModel.swift; sourceTree = "<group>"; };
@@ -144,7 +148,9 @@
 		00AFADA724D177CB00006DDD /* WebService */ = {
 			isa = PBXGroup;
 			children = (
-				00AFADA824D177EA00006DDD /* WebService.swift */,
+				00AFADA824D177EA00006DDD /* NetworkManager.swift */,
+				0042137C252BA2240073C3D2 /* NetworkResponse.swift */,
+				0042137E252BA22F0073C3D2 /* NetworkError.swift */,
 			);
 			path = WebService;
 			sourceTree = "<group>";
@@ -299,7 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00AFADA924D177EA00006DDD /* WebService.swift in Sources */,
+				00AFADA924D177EA00006DDD /* NetworkManager.swift in Sources */,
 				00AFADB424D1A7E400006DDD /* GameDetailsViewModel.swift in Sources */,
 				00AFADA624D172C500006DDD /* GamesModel.swift in Sources */,
 				00AFADB224D1A64000006DDD /* GameDetailsModel.swift in Sources */,
@@ -311,8 +317,10 @@
 				00AFADAC24D17DC200006DDD /* GamesViewModel.swift in Sources */,
 				00AFADBE24D1AE0200006DDD /* VisitLinksTableViewCell.swift in Sources */,
 				0041A19C24DA1F0700AF3E62 /* Extensions.swift in Sources */,
+				0042137D252BA2240073C3D2 /* NetworkResponse.swift in Sources */,
 				00AFADB624D1ACB300006DDD /* GameDetailsViewController.swift in Sources */,
 				00136F7E24D152EB0081F199 /* AppDelegate.swift in Sources */,
+				0042137F252BA22F0073C3D2 /* NetworkError.swift in Sources */,
 				00136F9424D15E180081F199 /* GamesViewController.swift in Sources */,
 				00136F8024D152EB0081F199 /* SceneDelegate.swift in Sources */,
 			);

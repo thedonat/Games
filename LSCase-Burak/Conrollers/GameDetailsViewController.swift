@@ -19,6 +19,7 @@ class GameDetailsViewController: UIViewController {
     @IBOutlet weak var gradientView: UIView!
     var gameDetailsViewModel: GameDetailsViewModel = GameDetailsViewModel()
     private let defaults = UserDefaults.standard
+    
     //MARK: -Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,7 @@ class GameDetailsViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         setNavigationBar()
     }
+    
     //MARK: -Helpers
     func prepareUI() {
         gameDetailsTableView.isHidden = true
@@ -47,8 +49,8 @@ class GameDetailsViewController: UIViewController {
     func configureUI() {
         configureGradientView()
         gradientView.isHidden = false
-        gameNameLabel.text = gameDetailsViewModel.name
-        if let imageUrl = gameDetailsViewModel.background_image {
+        gameNameLabel.text = gameDetailsViewModel.game?.name
+        if let imageUrl = gameDetailsViewModel.game?.background_image {
             let url = URL(string: imageUrl)
             gameTopImageView.kf.setImage(with: url)
         }
@@ -88,17 +90,18 @@ class GameDetailsViewController: UIViewController {
         }
     }
 }
+
 //MARK: -UITableViewDataSource
 extension GameDetailsViewController: UITableViewDataSource {    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let vm = gameDetailsViewModel
+        let vm = gameDetailsViewModel.game
         if indexPath.row == 0 {
             let cell = gameDetailsTableView.dequeueReusableCell(withIdentifier: "DescriptionTableViewCell", for: indexPath) as! DescriptionTableViewCell
             cell.setView(descriptionTitle: "Game Description",
-                         description: vm.description)
+                         description: vm?.description_raw)
             return cell
         } else {
             let cell = gameDetailsTableView.dequeueReusableCell(withIdentifier: "VisitWebsiteTableViewCell", for: indexPath) as! VisitLinksTableViewCell
@@ -111,15 +114,16 @@ extension GameDetailsViewController: UITableViewDataSource {
         }
     }
 }
+
 //MARK: -UITableViewDelegate
 extension GameDetailsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 2 {
-            if self.gameDetailsViewModel.website == ""{
+            if self.gameDetailsViewModel.game?.website == ""{
                 self.displayAlert()
             }
             else {
-                if let websiteUrl = self.gameDetailsViewModel.website,
+                if let websiteUrl = self.gameDetailsViewModel.game?.website,
                     let url = URL(string: websiteUrl) {
                     UIApplication.shared.open(url)
                 }
@@ -127,11 +131,11 @@ extension GameDetailsViewController: UITableViewDelegate {
         }
         
         if indexPath.row == 1 {
-            if self.gameDetailsViewModel.redditUrl == ""{
+            if self.gameDetailsViewModel.game?.reddit_url == ""{
                 self.displayAlert()
             }
             else {
-                if let redditUrl = self.gameDetailsViewModel.redditUrl,
+                if let redditUrl = self.gameDetailsViewModel.game?.reddit_url,
                     let url = URL(string: redditUrl) {
                     UIApplication.shared.open(url)
                 }
@@ -139,6 +143,7 @@ extension GameDetailsViewController: UITableViewDelegate {
         }
     }
 }
+
 //MARK: -GameDetailsViewModelProtocol
 extension GameDetailsViewController: GameDetailsViewModelProtocol {
     func didGetData() {

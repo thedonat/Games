@@ -18,16 +18,24 @@ class GamesListViewModel {
     var currentPage = 1
     var perPage: Int = 10
     var getSearchedText = String()
+    
     var numberOfRows: Int {
         return searchResult.count
     }
     
     func getData() {
         let searchingUrl = "\(SEARCH_BASE_URL)&page=\(currentPage)&search=\(getSearchedText)"
-        WebService().performRequest(url: searchingUrl, completion: { (games: GamesModel) in
-            self.searchResult.append(contentsOf: games.results)
-            self.delegate?.didUpdateData()
-        }) { (error) in
+        NetworkManager().performRequest(url: searchingUrl) {  [weak self] (response: NetworkResponse<GamesModel, NetworkError>) in
+            guard let self = self else { return }
+            
+            switch response {
+            case .success(let result):
+                self.searchResult = result.results
+                self.delegate?.didUpdateData()
+                break
+            case .failure(let error):
+                print(error.errorMessage)
+            }
         }
     }
     
@@ -36,49 +44,7 @@ class GamesListViewModel {
         getData()
     }
     
-    func cellForRow(at index: Int) -> GamesViewModel? {
-        if let game = self.searchResult[index] {
-            return GamesViewModel(game: game)
-        }
-        return nil
-    }
-}
-
-class GamesViewModel {
-    private let game: SearchResult
-    
-    init(game: SearchResult) {
-        self.game = game
-    }
-    
-    var name: String? {
-        return game.name
-    }
-    
-    var id: Int? {
-        return game.id
-    }
-    
-    var metacritic: Int? {
-        return game.metacritic
-    }
-    
-    var background_image: String? {
-        return game.background_image
-    }
-    
-    var genreData: String {
-        var genresString: String = ""
-        
-        if let genres = game.genres {
-            for (index, genre) in genres.enumerated() {
-                genresString += genre.name
-                
-                if index < genres.count - 1 {
-                    genresString += ", "
-                }
-            }
-        }
-        return genresString
+    func cellForRow(at index: Int) -> SearchResult? {
+        return searchResult[index]
     }
 }

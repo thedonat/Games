@@ -72,7 +72,7 @@ extension GamesViewController: UITableViewDataSource {
         let vm = self.gameListViewModel.cellForRow(at: indexPath.row)
         cell.setView(name: vm?.name,
                      matacritic: vm?.metacritic,
-                     genre: vm?.genreData,
+                     genre: vm?.genres,
                      imageUrl: vm?.background_image)
         if let selectedGameID = gameListViewModel.searchResult[indexPath.row]?.id {
             if selectedGameIDs.contains(selectedGameID) {
@@ -104,16 +104,16 @@ extension GamesViewController: UITableViewDelegate {
             }
         }
     }
-    
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        let totalRow = gameListViewModel.searchResult.count
-        if indexPath.row == totalRow - 1 {
-            if totalRow % gameListViewModel.perPage == 0 {
-                gameListViewModel.fetchNextPage()
-            }
-        }
-    }
+//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+//        let totalRow = gameListViewModel.searchResult.count
+//        if indexPath.row == totalRow - 1 {
+//            if totalRow % gameListViewModel.perPage == 0 {
+//                gameListViewModel.fetchNextPage()
+//            }
+//        }
+//    }
 }
+
 //MARK: -GamesListViewModelProtocol
 extension GamesViewController: GamesListViewModelProtocol {
     func didUpdateData() {
@@ -123,6 +123,7 @@ extension GamesViewController: GamesListViewModelProtocol {
         }
     }
 }
+
 //MARK: -UISearchBarDelegate
 extension GamesViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

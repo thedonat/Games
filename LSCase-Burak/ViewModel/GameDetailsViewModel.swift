@@ -13,15 +13,12 @@ protocol GameDetailsViewModelProtocol: class {
 }
 
 class GameDetailsViewModel {
-    private var game: GameDetailsModel?
+    var game: GameDetailsModel? = nil
     private let defaults = UserDefaults.standard
     weak var delegate: GameDetailsViewModelProtocol?
     var getGameID: Int?
     var favouritedGameIDs: [Int] = []
-    
-    init(game: GameDetailsModel? = nil) {
-        self.game = game
-    }
+
     
     func addFavourite(id: Int) {
         if let favouritedGameIDs = defaults.value(forKey: FAVOURITES_KEY) as? [Int] {
@@ -31,7 +28,7 @@ class GameDetailsViewModel {
             favouritedGameIDs.append(id)
             defaults.set(favouritedGameIDs, forKey: FAVOURITES_KEY)
         } else {
-            favouritedGameIDs = favouritedGameIDs.filter { $0 != gameID }
+            favouritedGameIDs = favouritedGameIDs.filter { $0 != game?.id }
             defaults.set(favouritedGameIDs, forKey: FAVOURITES_KEY)
         }
     }
@@ -39,39 +36,18 @@ class GameDetailsViewModel {
     func getData() {
         if let gameID = getGameID {
             let detailsUrl = "\(DETAILS_BASE_URL)\(gameID)"
-            WebService().performRequest(url: detailsUrl, completion: { (gameDetails: GameDetailsModel) in
-                self.game = gameDetails
-                self.delegate?.didGetData() //inform listeners that data has came.
-            }) { (error) in
+            NetworkManager().performRequest(url: detailsUrl) { [weak self] (response: NetworkResponse<GameDetailsModel, NetworkError>) in
+                guard let self = self else { return }
+                
+                switch response {
+                case .success(let result):
+                    self.game = result
+                    self.delegate?.didGetData()
+                    break
+                case .failure(let error):
+                    print(error.errorMessage)
+                }
             }
         }
     }
-    
-    var name: String? {
-        return game?.name
-    }
-    
-    var gameID: Int? {
-        return game?.id
-    }
-    
-    var description: String? {
-        return game?.description_raw
-    }
-    
-    var background_image: String? {
-        return game?.background_image
-    }
-    
-    var redditUrl: String? {
-        return game?.reddit_url
-    }
-    var website: String? {
-        return game?.website
-    }
-    var metacritic: Int? {
-        return game?.metacritic
-    }
 }
-
-

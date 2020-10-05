@@ -9,11 +9,13 @@
 import UIKit
 
 class FavouritesViewController: UIViewController {
+    
     //MARK: -Properties
     @IBOutlet weak var favouritesTableView: UITableView!
     @IBOutlet weak var noFavouritesLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     private var favouritesListViewModel: FavouritesListViewModel = FavouritesListViewModel()
+    
     //MARK: -Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,6 +26,7 @@ class FavouritesViewController: UIViewController {
         super.viewWillAppear(animated)
         getData()
     }
+    
     //MARK: -Helpers
     private func getData() {
         favouritesListViewModel.delegate = self
@@ -57,6 +60,7 @@ class FavouritesViewController: UIViewController {
         }
     }
 }
+
 //MARK: -UITableViewDataSource
 extension FavouritesViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -66,10 +70,11 @@ extension FavouritesViewController: UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = favouritesTableView.dequeueReusableCell(withIdentifier: "FavouritesTableViewCell", for: indexPath) as! GamesTableViewCell
         let vm = favouritesListViewModel.cellForRow(at: indexPath.row)
-        cell.setView(name: vm?.name, matacritic: vm?.metacritic, genre: vm?.genreData, imageUrl: vm?.background_image)
+        cell.setView(name: vm?.name, matacritic: vm?.metacritic, genre: vm?.genres, imageUrl: vm?.background_image)
         return cell
     }
 }
+
 //MARK: -UITableViewDelegate
 extension FavouritesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -90,14 +95,9 @@ extension FavouritesViewController: UITableViewDelegate {
         }
     }
 }
+
 //MARK: -FavouritesViewModelProtocol
 extension FavouritesViewController: FavouritesViewModelProtocol {
-    func didFailWithError() {
-        DispatchQueue.main.async {
-            self.configureUI()
-        }
-    }
-    
     func didGetFavouritedData() {
         DispatchQueue.main.async {
             self.configureUI()

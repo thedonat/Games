@@ -20,9 +20,9 @@ class GamesTableViewCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    func setView(name: String?, matacritic: Int?, genre: String?, imageUrl: String? ) {
+    func setView(name: String?, matacritic: Int?, genre: [Genres]?, imageUrl: String? ) {
         gameNameLabel.text = name
-        gameGenreLabel.text = genre
+        gameGenreLabel.text = genre?.first?.name
         if let imageUrl = imageUrl {
             let url = URL(string: imageUrl)
             gameImageView.kf.setImage(with: url)

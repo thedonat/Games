@@ -10,39 +10,43 @@ import Foundation
 
 protocol FavouritesViewModelProtocol: class {
     func didGetFavouritedData()
-    func didFailWithError()
 }
 
 class FavouritesListViewModel {
-     weak var delegate: FavouritesViewModelProtocol?
-     private let defaults = UserDefaults.standard
-     var searchResult: [GameDetailsModel?] = []
-     var numberOfRows: Int {
-         return searchResult.count
-     }
-
-     func getFavouritedGames() {
+    weak var delegate: FavouritesViewModelProtocol?
+    private let defaults = UserDefaults.standard
+    var searchResult: [GameDetailsModel?] = []
+    
+    var numberOfRows: Int {
+        return searchResult.count
+    }
+    
+    func getFavouritedGames() {
         self.searchResult = []
         if let favouritedGameIDs = defaults.value(forKey: FAVOURITES_KEY) as? [Int] {
-             for id in favouritedGameIDs {
-                 let url = "\(DETAILS_BASE_URL)\(id)"
-                 WebService().performRequest(url: url, completion: { (gameDetails: GameDetailsModel) in
-                     self.searchResult.append(gameDetails)
-                     self.delegate?.didGetFavouritedData()
-                 }) { (error) in
-                 }
+            for id in favouritedGameIDs {
+                let url = "\(DETAILS_BASE_URL)\(id)"
+                NetworkManager().performRequest(url: url) { [weak self] (response: NetworkResponse<GameDetailsModel, NetworkError>) in
+                    guard let self = self else { return }
+                    
+                    switch response {
+                    case .success(let result):
+                        self.searchResult.append(result)
+                        self.delegate?.didGetFavouritedData()
+                        break
+                    case .failure(let error):
+                        print(error.errorMessage)
+                        self.delegate?.didGetFavouritedData()
+                    }
+                }
             }
-            self.delegate?.didGetFavouritedData()
         } else {
             self.delegate?.didGetFavouritedData()
         }
-     }
+    }
     
-    func cellForRow(at index: Int) -> FavouritesViewModel? {
-        if let game = self.searchResult[index] {
-            return FavouritesViewModel(game: game)
-        }
-        return nil
+    func cellForRow(at index: Int) -> GameDetailsModel? {
+        return searchResult[index]
     }
     
     func deleteFavouritedItem(from index: Int) {
@@ -52,39 +56,5 @@ class FavouritesListViewModel {
             searchResult.remove(at: index)
             defaults.set(favouritedGameIDs, forKey: FAVOURITES_KEY)
         }
-    }
-}
-
-class FavouritesViewModel {
-    private let game: GameDetailsModel
-    
-    init(game: GameDetailsModel) {
-        self.game = game
-    }
-    
-    var name: String? {
-         return game.name
-     }
-    
-    var metacritic: Int? {
-        return game.metacritic
-    }
-    
-    var background_image: String? {
-        return game.background_image
-    }
-    
-    var genreData: String {
-        var genresString: String = ""
-        if let genres = game.genres {
-            for (index, genre) in genres.enumerated() {
-                genresString += genre.name
-                
-                if index < genres.count - 1 {
-                    genresString += ", "
-                }
-            }
-        }
-        return genresString
     }
 }
