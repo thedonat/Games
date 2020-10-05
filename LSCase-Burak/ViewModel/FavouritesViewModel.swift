@@ -12,7 +12,7 @@ protocol FavouritesViewModelProtocol: class {
     func didGetFavouritedData()
 }
 
-class FavouritesListViewModel {
+class FavouritesViewModel {
     weak var delegate: FavouritesViewModelProtocol?
     private let defaults = UserDefaults.standard
     var searchResult: [GameDetailsModel?] = []
@@ -23,9 +23,9 @@ class FavouritesListViewModel {
     
     func getFavouritedGames() {
         self.searchResult = []
-        if let favouritedGameIDs = defaults.value(forKey: FAVOURITES_KEY) as? [Int] {
+        if let favouritedGameIDs = defaults.value(forKey: K.FAVOURITES_KEY) as? [Int] {
             for id in favouritedGameIDs {
-                let url = "\(DETAILS_BASE_URL)\(id)"
+                let url = "\(K.DETAILS_BASE_URL)\(id)"
                 NetworkManager().performRequest(url: url) { [weak self] (response: NetworkResponse<GameDetailsModel, NetworkError>) in
                     guard let self = self else { return }
                     
@@ -51,10 +51,10 @@ class FavouritesListViewModel {
     
     func deleteFavouritedItem(from index: Int) {
         let gameID = self.searchResult[index]?.id
-        if var favouritedGameIDs = defaults.value(forKey: FAVOURITES_KEY) as? [Int] {
+        if var favouritedGameIDs = defaults.value(forKey: K.FAVOURITES_KEY) as? [Int] {
             favouritedGameIDs = favouritedGameIDs.filter { $0 != gameID }
             searchResult.remove(at: index)
-            defaults.set(favouritedGameIDs, forKey: FAVOURITES_KEY)
+            defaults.set(favouritedGameIDs, forKey: K.FAVOURITES_KEY)
         }
     }
 }

@@ -14,7 +14,7 @@ class FavouritesViewController: UIViewController {
     @IBOutlet weak var favouritesTableView: UITableView!
     @IBOutlet weak var noFavouritesLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    private var favouritesListViewModel: FavouritesListViewModel = FavouritesListViewModel()
+    private var favouritesListViewModel: FavouritesViewModel = FavouritesViewModel()
     
     //MARK: -Lifecycle
     override func viewDidLoad() {

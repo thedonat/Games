@@ -15,7 +15,7 @@ class GamesViewController: UIViewController{
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var noDataLabel: UILabel!
     private var selectedGameIDs : [Int] = []
-    private var gameListViewModel: GamesListViewModel = GamesListViewModel()
+    private var gameListViewModel: GamesViewModel = GamesViewModel()
     private let defaults = UserDefaults.standard
     //MARK: -Lifecycle
     override func viewDidLoad() {
@@ -27,7 +27,7 @@ class GamesViewController: UIViewController{
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        defaults.set(selectedGameIDs, forKey: SELECTEDS_KEY)
+        defaults.set(selectedGameIDs, forKey: K.SELECTEDS_KEY)
     }
     //MARK: -Helpers
     private func prepareUI() {
@@ -37,7 +37,7 @@ class GamesViewController: UIViewController{
         activityIndicator.color = .red
         activityIndicator.startAnimating()
         gamesTableView.isHidden = true
-        if let selectedGames = defaults.value(forKey: SELECTEDS_KEY) as? [Int] {
+        if let selectedGames = defaults.value(forKey: K.SELECTEDS_KEY) as? [Int] {
             selectedGameIDs = selectedGames
         }
     }
@@ -115,7 +115,7 @@ extension GamesViewController: UITableViewDelegate {
 }
 
 //MARK: -GamesListViewModelProtocol
-extension GamesViewController: GamesListViewModelProtocol {
+extension GamesViewController: GamesViewModelProtocol {
     func didUpdateData() {
         DispatchQueue.main.async {
             self.configureUI()

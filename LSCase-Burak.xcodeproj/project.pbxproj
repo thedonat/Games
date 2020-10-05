@@ -96,12 +96,10 @@
 				00136F7D24D152EB0081F199 /* AppDelegate.swift */,
 				00136F7F24D152EB0081F199 /* SceneDelegate.swift */,
 				00350BD324D4733C008E56C1 /* Helpers */,
-				00AFADAD24D188E100006DDD /* CustomCells */,
 				00AFADA724D177CB00006DDD /* WebService */,
 				00AFADA424D1724F00006DDD /* Model */,
+				00421380252BA8610073C3D2 /* View */,
 				00AFADAA24D17D9200006DDD /* ViewModel */,
-				00136F9224D15DE70081F199 /* Storyboards */,
-				00136F9124D15DDC0081F199 /* Conrollers */,
 				00136F8624D152F00081F199 /* Assets.xcassets */,
 				00136F8B24D152F00081F199 /* Info.plist */,
 			);
@@ -134,6 +132,16 @@
 				00C5721924DB458400257EB4 /* Constants.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		00421380252BA8610073C3D2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				00136F9224D15DE70081F199 /* Storyboards */,
+				00136F9124D15DDC0081F199 /* Conrollers */,
+				00AFADAD24D188E100006DDD /* CustomCells */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		00AFADA424D1724F00006DDD /* Model */ = {

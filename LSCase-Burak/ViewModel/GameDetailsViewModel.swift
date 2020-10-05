@@ -21,21 +21,21 @@ class GameDetailsViewModel {
 
     
     func addFavourite(id: Int) {
-        if let favouritedGameIDs = defaults.value(forKey: FAVOURITES_KEY) as? [Int] {
+        if let favouritedGameIDs = defaults.value(forKey: K.FAVOURITES_KEY) as? [Int] {
             self.favouritedGameIDs = favouritedGameIDs
         }
         if !favouritedGameIDs.contains(id) {
             favouritedGameIDs.append(id)
-            defaults.set(favouritedGameIDs, forKey: FAVOURITES_KEY)
+            defaults.set(favouritedGameIDs, forKey: K.FAVOURITES_KEY)
         } else {
             favouritedGameIDs = favouritedGameIDs.filter { $0 != game?.id }
-            defaults.set(favouritedGameIDs, forKey: FAVOURITES_KEY)
+            defaults.set(favouritedGameIDs, forKey: K.FAVOURITES_KEY)
         }
     }
 
     func getData() {
         if let gameID = getGameID {
-            let detailsUrl = "\(DETAILS_BASE_URL)\(gameID)"
+            let detailsUrl = "\(K.DETAILS_BASE_URL)\(gameID)"
             NetworkManager().performRequest(url: detailsUrl) { [weak self] (response: NetworkResponse<GameDetailsModel, NetworkError>) in
                 guard let self = self else { return }
                 

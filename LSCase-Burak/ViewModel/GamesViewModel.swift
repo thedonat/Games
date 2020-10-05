@@ -8,12 +8,12 @@
 
 import Foundation
 
-protocol GamesListViewModelProtocol: class {
+protocol GamesViewModelProtocol: class {
     func didUpdateData()
 }
 
-class GamesListViewModel {
-    weak var delegate: GamesListViewModelProtocol?
+class GamesViewModel {
+    weak var delegate: GamesViewModelProtocol?
     var searchResult: [SearchResult?] = []
     var currentPage = 1
     var perPage: Int = 10
@@ -24,7 +24,7 @@ class GamesListViewModel {
     }
     
     func getData() {
-        let searchingUrl = "\(SEARCH_BASE_URL)&page=\(currentPage)&search=\(getSearchedText)"
+        let searchingUrl = "\(K.SEARCH_BASE_URL)&page=\(currentPage)&search=\(getSearchedText)"
         NetworkManager().performRequest(url: searchingUrl) {  [weak self] (response: NetworkResponse<GamesModel, NetworkError>) in
             guard let self = self else { return }
             

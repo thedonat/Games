@@ -8,7 +8,9 @@
 
 import Foundation
 
-let SEARCH_BASE_URL = "https://api.rawg.io/api/games?page_size=10"
-let DETAILS_BASE_URL = "https://api.rawg.io/api/games/"
-let FAVOURITES_KEY = "selectedIds"
-let SELECTEDS_KEY = "selectedGameIDs"
+struct K {
+    static let SEARCH_BASE_URL = "https://api.rawg.io/api/games?page_size=10"
+    static let DETAILS_BASE_URL = "https://api.rawg.io/api/games/"
+    static let FAVOURITES_KEY = "selectedIds"
+    static let SELECTEDS_KEY = "selectedGameIDs"
+}

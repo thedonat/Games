@@ -70,7 +70,7 @@ class GameDetailsViewController: UIViewController {
     func setNavigationBar() {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Favourite", style: .plain, target: self, action: #selector(addFavouriteTapped))
         self.navigationItem.largeTitleDisplayMode = .never
-        if let favouritedGameIDs = defaults.value(forKey: FAVOURITES_KEY) as? [Int] {
+        if let favouritedGameIDs = defaults.value(forKey: K.FAVOURITES_KEY) as? [Int] {
             if let favouritedGameID = gameDetailsViewModel.getGameID {
                 if favouritedGameIDs.contains(favouritedGameID) {
                     navigationItem.rightBarButtonItem?.title = "Favourited"
