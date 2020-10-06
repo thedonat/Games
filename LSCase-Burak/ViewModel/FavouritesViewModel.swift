@@ -40,6 +40,7 @@ class FavouritesViewModel {
                     }
                 }
             }
+            self.delegate?.didGetFavouritedData()
         } else {
             self.delegate?.didGetFavouritedData()
         }
