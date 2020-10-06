@@ -104,14 +104,14 @@ extension GamesViewController: UITableViewDelegate {
             }
         }
     }
-//    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let totalRow = gameListViewModel.searchResult.count
-//        if indexPath.row == totalRow - 1 {
-//            if totalRow % gameListViewModel.perPage == 0 {
-//                gameListViewModel.fetchNextPage()
-//            }
-//        }
-//    }
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let totalRow = gameListViewModel.numberOfRows
+        if indexPath.row == totalRow - 1 {
+            if totalRow % gameListViewModel.perPage == 0 {
+                gameListViewModel.fetchNextPage()
+            }
+        }
+    }
 }
 
 //MARK: -GamesListViewModelProtocol

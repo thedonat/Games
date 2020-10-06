@@ -30,7 +30,7 @@ class GamesViewModel {
             
             switch response {
             case .success(let result):
-                self.searchResult = result.results
+                self.searchResult.append(contentsOf: result.results)
                 self.delegate?.didUpdateData()
                 break
             case .failure(let error):
