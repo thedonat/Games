@@ -1,4 +1,5 @@
-# LSCaseProject
+# Games
+
 🍏 Video game searching app; MVVM, Pagination, URLSession
 
 🍏 Networking, pagination, life cycle, UISearchBarDelegate practice.
